@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+
+#menu_detail_img {
+  background-color: rgb(171, 204, 80);
+  overflow: hidden;
+  width : 100px;
+  height: 100px;
+  margin-right :20px; 
+}
+
+.select_menu{
+  display : flex;
+  flex-direction: row;
+  justify-content : center;
+  /*align center/\
+  */
+}
+
+
+#menu_info{
+  display : flex;
+  flex-direction: column;
+  /*align column deraction*/
+}
+
+#menu_price{
+  display : flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#clickerbutton{
+  margin-right : 10px;
+  display : flex;
+  align-items: center;
+  
+}
+#select_price{
+  width : 200px;
+  text-align: center;
+}
