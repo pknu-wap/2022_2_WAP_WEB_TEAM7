@@ -81,13 +81,11 @@ const menu4 = {
 
 
 function App() {
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
     // 메뉴 선택시 선택한 메뉴 세부 창 띄우기
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // 메뉴 클릭시 클릭한 메뉴의 이름을 저장하는 변수
   const [selected_menu,set_selected_menu]=useState(menu1)
-  // 세부메뉴에서 메뉴의 수 늘어날 때마다 화면에 표시
-  let [order_count,set_order_count]=useState(1);
-  // 메뉴 클릭시 
   const onclickmenu = event=>{
     const menu_id= String(event.currentTarget.id)
     setModalIsOpen(true);
@@ -106,41 +104,59 @@ function App() {
       set_selected_menu(menu4)
   
     }
+  }
+  // 옵션 별 가격을 의미하는 변수
+  let [detail_price1,set_detail_price1]=useState(0);
+  let [detail_price2,set_detail_price2]=useState(0);
+
+  // 세부메뉴에서 메뉴의 수 늘어날 때마다 화면에 표시
+  let [order_count,set_order_count]=useState(1);
+  
+  // 주문 버튼 클릭시 주문한 내용 저장  
+  let [order_list, setorder_list] = useState([]);
+
+
+  function save_order (){
+    // get option name and price
+    let menu_name=selected_menu.name
+    let option3 = document.querySelector('input[name=option1]:checked');
+    let option4 = document.querySelector('input[name=option2]:checked');
+    if(option3===null | option4==null){
+      alert("옵션을 선택해주세요")
+    }
+    let option1 = document.querySelector('input[name=option1]:checked').value;
+    let option2 = document.querySelector('input[name=option2]:checked').value;
+    
+    
+    let total_price = selected_menu.price*order_count+detail_price1+detail_price2
+    let info= {"menu_name" : menu_name, "option1" : option1, "option2" : option2, "total_price" : total_price, "order_count" : order_count}
+    set_detail_price1(0);
+    set_detail_price2(0)
+    set_order_count(1)
+    setorder_list((order_list) => [...order_list, info]);
+
+    setModalIsOpen(false);
+    return order_list
+  }
+
 
   
-    
-  }
-  // 세부 메뉴 선택 버튼 리스트 만들기
-  const option_list = selected_menu.options.map((option)=>{
-    return(
-      <div>
-        <h3>{option.name}</h3>
-        <h4>{option.description}</h4>
-        <ul>
-          {Object.keys(option.choices).map((choice)=>{
-            return(
-              <li>
-                <button>{choice}</button>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-    )
-  })
 return (
   // get id of clicked button and pass it to modal
   
   <div className="App">
+{/* // 임시 메뉴판 생성 */}
     <div className="menu">
       <button id="menu1" onClick={onclickmenu}>gimbab</button>
       <button id="menu2" onClick={onclickmenu}>ramyun</button>
       <button id="menu3" onClick={onclickmenu}>topoki</button>
       <button id="menu4" onClick={onclickmenu}>dongas</button>
     </div>
-    {/* 세부메뉴 창 이외의 곳을 눌러도 선택 안 되게끔 설정 */}
+
+    {/* 세부메뉴 창 바깥 선택 안 되도록 설정 */}
     <Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(true)}>
-      
+    <div>
+      {/* 선택한 메뉴 정보*/}
       <div className="select_menu">
         <div id='menu_detail_img'>
           <img src={'#'} alt="메뉴이미지입니다."></img>
@@ -148,51 +164,60 @@ return (
         <div id="menu_info">
           <div>
           <h2>{selected_menu.name}</h2>
-          <h2>{selected_menu.description}</h2>
+          <h2>{selected_menu.price}</h2>
           </div>
           <div id="menu_price">
+            <p>수량</p>
             <span id='clickerbutton'> 
-              <button onClick={()=>order_count>=1?set_order_count(order_count=order_count+1):null}>+</button>
+              <button onClick={()=>order_count>=1?(set_order_count(order_count=order_count+1)):null}>+</button>
               <span>{order_count}</span>
-              <button onClick={()=>order_count>1?set_order_count(order_count=order_count-1):null}>-</button>
+              <button onClick={()=>order_count>1?(set_order_count(order_count=order_count-1)):null}>-</button>
             </span>
             <div id='select_price'>
-              <h2>{selected_menu.price*order_count}원</h2>
+              <h2>{selected_menu.price*order_count+detail_price1+detail_price2}원</h2>
             </div>
-            
           </div>
         </div>
       </div>
+      {/* 메뉴 옵션 */}
       <div className="select_menu_detail">
         <div className="menu_detail">
           <h2>{selected_menu.options[0].name}</h2>
+          {/* <ul className="Options">
+            <label><input name='option1'                value= {Object.keys(selected_menu.options[0].choices)[0]} onChange={()=>console.log(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}  type="radio"/>{Object.keys(selected_menu.options[0].choices)[0]} : {Object.values(selected_menu.options[0].choices)[0]} </label>
+            <label><input name='option1' defaltChecked  value= {Object.keys(selected_menu.options[0].choices)[1]} onChange={()=>set_detail_price1(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}  type="radio"/>{Object.keys(selected_menu.options[0].choices)[1]} : {Object.values(selected_menu.options[0].choices)[1]}</label>
+            <label><input name='option1'                value= {Object.keys(selected_menu.options[0].choices)[2]}   onChange={()=>console.log(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}type="radio"/>{Object.keys(selected_menu.options[0].choices)[2]} : {Object.values(selected_menu.options[0].choices)[2]} </label>
+          </ul> */}
+          {/* {make radio button group to select detail menu } */}
           <ul className="Options">
-             <button>{Object.keys(selected_menu.options[0].choices)[0]}</button>
-             <button>{Object.keys(selected_menu.options[0].choices)[1]}</button>
-             <button>{Object.keys(selected_menu.options[0].choices)[2]}</button>
+          {Object.keys(selected_menu.options[0].choices).map((key,index)=>{
+              return(
+                <label key={index}>
+                  <input name='option1' value={key} onChange={()=>set_detail_price1(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])} type="radio"/>{key} : {selected_menu.options[0].choices[key]}
+                </label>
+              )
+            })}
           </ul>
         </div>
         <div className="menu_detail">
           <h2>{selected_menu.options[1].name}</h2>
           <ul className="Options">
-             <button>{Object.keys(selected_menu.options[1].choices)[0]+ Object.keys(selected_menu.options[1].choices)[0] }</button>
-             <button>{Object.keys(selected_menu.options[1].choices)[1]}</button>
-             <button>{Object.keys(selected_menu.options[1].choices)[2]}</button>
-          </ul>
-        </div>
-        <div className="menu_detail">
-          <h2>{selected_menu.options[1].name}</h2>
-          <ul className="Options">
-            {/* <li>{selected_menu.options[2].choices[0]}</li>
-            <li>{selected_menu.options[2].choices[1]}</li>
-            <li>{selected_menu.options[2].choices[2]}</li> */}
+          {Object.keys(selected_menu.options[1].choices).map((key,index)=>{
+              return(
+                <label key={index}>
+                  <input name='option2' value={key} onChange={()=>set_detail_price2(selected_menu.options[1].choices[document.querySelector('input[name=option2]:checked').value])} type="radio"/>{key} : {selected_menu.options[1].choices[key]}
+                </label>
+              )
+            })} 
           </ul>
         </div>
       </div>
+      {/* 메뉴 주문/취소 버튼 */}
       <footer>
-        <button onClick={()=>setModalIsOpen(false)}>취소</button>
-        <button onClick={()=>setModalIsOpen(false)}>주문담기</button>
+        <button onClick={()=>(setModalIsOpen(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1))}>취소</button>
+        <button onClick={(()=>(setModalIsOpen(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1)),()=>{console.log(save_order())})}>주문담기</button>
       </footer>
+    </div>
     </Modal>
   </div>
   );
