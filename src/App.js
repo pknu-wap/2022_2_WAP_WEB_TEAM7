@@ -130,13 +130,23 @@ function App() {
     
     let total_price = selected_menu.price*order_count+detail_price1+detail_price2
     let info= {"menu_name" : menu_name, "option1" : option1, "option2" : option2, "total_price" : total_price, "order_count" : order_count}
+    // make order list plus new order
+    let new_order_list = order_list
+    new_order_list.push(info)
+    setorder_list(new_order_list)
+
+
+
+
     set_detail_price1(0);
     set_detail_price2(0)
     set_order_count(1)
-    setorder_list((order_list) => [...order_list, info]);
-
+    
     setModalIsOpen(false);
-    return order_list
+    console.log(order_list)
+    return order_list;
+
+    //return order_list
   }
 
 
@@ -174,7 +184,7 @@ return (
               <button onClick={()=>order_count>1?(set_order_count(order_count=order_count-1)):null}>-</button>
             </span>
             <div id='select_price'>
-              <h2>{selected_menu.price*order_count+detail_price1+detail_price2}원</h2>
+              <h2>{order_count*(selected_menu.price+detail_price1+detail_price2)}원</h2>
             </div>
           </div>
         </div>
@@ -183,12 +193,6 @@ return (
       <div className="select_menu_detail">
         <div className="menu_detail">
           <h2>{selected_menu.options[0].name}</h2>
-          {/* <ul className="Options">
-            <label><input name='option1'                value= {Object.keys(selected_menu.options[0].choices)[0]} onChange={()=>console.log(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}  type="radio"/>{Object.keys(selected_menu.options[0].choices)[0]} : {Object.values(selected_menu.options[0].choices)[0]} </label>
-            <label><input name='option1' defaltChecked  value= {Object.keys(selected_menu.options[0].choices)[1]} onChange={()=>set_detail_price1(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}  type="radio"/>{Object.keys(selected_menu.options[0].choices)[1]} : {Object.values(selected_menu.options[0].choices)[1]}</label>
-            <label><input name='option1'                value= {Object.keys(selected_menu.options[0].choices)[2]}   onChange={()=>console.log(selected_menu.options[0].choices[document.querySelector('input[name=option1]:checked').value])}type="radio"/>{Object.keys(selected_menu.options[0].choices)[2]} : {Object.values(selected_menu.options[0].choices)[2]} </label>
-          </ul> */}
-          {/* {make radio button group to select detail menu } */}
           <ul className="Options">
           {Object.keys(selected_menu.options[0].choices).map((key,index)=>{
               return(
@@ -215,7 +219,7 @@ return (
       {/* 메뉴 주문/취소 버튼 */}
       <footer>
         <button onClick={()=>(setModalIsOpen(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1))}>취소</button>
-        <button onClick={(()=>(setModalIsOpen(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1)),()=>{console.log(save_order())})}>주문담기</button>
+        <button onClick={(()=>(setModalIsOpen(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1)),()=>save_order())}>주문담기</button>
       </footer>
     </div>
     </Modal>
