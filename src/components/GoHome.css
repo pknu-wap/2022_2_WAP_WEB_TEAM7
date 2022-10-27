@@ -1,0 +1,17 @@
+#first button {
+    width: 5rem;
+    height: 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #292929;
+    border-radius: 7px;
+    background-color: #ffbc0d;
+  }
+    
+  #first button:hover {
+    filter: brightness(1.1);
+  }
+    
+  #first button:active {
+    filter: brightness(0.9);
+  }
