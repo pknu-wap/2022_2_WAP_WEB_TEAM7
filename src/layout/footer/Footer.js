@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 
+
 function Footer() {
     const total_menu = 0;
     const total_price = 0;
