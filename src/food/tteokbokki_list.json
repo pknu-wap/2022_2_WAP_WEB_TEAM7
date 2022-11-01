@@ -1,0 +1,20 @@
+[
+    {
+        "id": 301,
+        "name": "떡볶이",
+        "image": "./image/tteokbokki/basic.png",
+        "price": 3000,
+        "options": [
+            {
+              "name": "맵기",
+              "description": "맵기",
+              "choices": {"덜 맵게": 0, "보통": 0, "매우맵게": 500}
+            },
+            {
+              "name": "양",
+              "description": "양",
+              "choices" : {"많이": 1000, "보통": 0, "적게": -1000}
+            }
+          ]
+    }
+]

@@ -1,0 +1,31 @@
+.container button {
+  width: 10rem;
+  height: 5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #292929;
+  border-radius: 13px;
+  background-color: #ffbc0d;
+}
+
+.container button:hover {
+  filter: brightness(1.1);
+}
+
+.container button:active {
+  filter: brightness(0.9);
+}
+
+#restaurant {
+  position: absolute;
+  left: 35%;
+  top: 50%;
+  transform: translate(-65%, -50%);
+}
+
+#packaging {
+  position: absolute;
+  left: 65%;
+  top: 50%;
+  transform: translate(-35%, -50%);
+}
