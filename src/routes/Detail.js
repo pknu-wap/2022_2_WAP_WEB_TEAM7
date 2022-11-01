@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import "./Detail.css"
 function Detail(props){
@@ -40,7 +39,7 @@ function Detail(props){
           <div id="menu_info">
             <div>
             <h2>{props.name}</h2>
-            <h2>{props.price}원</h2>
+            <h2><label>가격 </label>{props.price}원</h2>
             </div>
           </div>
         </div>
@@ -53,7 +52,7 @@ function Detail(props){
               <button onClick={()=>order_count>1?(set_order_count(order_count=order_count-1)):null}>-</button>
             </span>
             <div id='select_price'>
-              <h2>{order_count*(props.price+detail_price1+detail_price2)}원</h2>
+              <h2>총  {order_count*(props.price+detail_price1+detail_price2)}원</h2>
             </div>
           </div>
       </div>
@@ -85,7 +84,7 @@ function Detail(props){
         </div>
       </div>
       {/* 메뉴 주문/취소 버튼 */}
-      <footer>
+      <footer id='fin'>
         <button onClick={()=>(props.setwindow(false),set_detail_price1(0),set_detail_price2(0),set_order_count(1))}>취소</button>
         <button onClick={()=> save_order()}>주문담기</button>
       </footer>
