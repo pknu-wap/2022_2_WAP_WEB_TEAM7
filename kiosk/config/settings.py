@@ -19,7 +19,7 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xc5)8u4712a2177_igevw=kpcyp#^syn3wr-$$xgwjx=tc&!ze'
+SECRET_KEY = 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
