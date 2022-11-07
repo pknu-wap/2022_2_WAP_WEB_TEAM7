@@ -21,6 +21,8 @@ function Menu({foodname, onCreate}) {
   // 주문 목록에 확인용 코드 콘솔에 주문목록이 출력됨
   console.log("주문목록", ordered_list)
   //
+  
+
   const [inputs, setInputs] = useState({
     dialog: 0,
     number: 1,
@@ -42,6 +44,7 @@ function showorder(order_list){
   set_ordered_list([...ordered_list,order_list])
 }
 //
+
 function Gimbap() {
   return(
     <div className="order_container">
@@ -152,7 +155,7 @@ function Side() {
             <button onClick={()=>{setMode('side');}}>사이드</button>
             </div>
             {content}
-            <Footer/>
+            <Footer order={[...ordered_list]} showorder={showorder}/>
         </div>
     )
   }  

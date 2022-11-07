@@ -20,7 +20,6 @@ function Detail(props){
    
     let total_price = order_count*(props.price+detail_price1+detail_price2)
     let info= {"menu_name" : menu_name, "option1" : option1, "option2" : option2, "total_price" : total_price, "order_count" : order_count}
-    set_order_list(info)
     props.showlist(info)
     props.setwindow(false)
 

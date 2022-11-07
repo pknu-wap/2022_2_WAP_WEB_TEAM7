@@ -1,16 +1,23 @@
 import React from "react";
 import "./Footer.css";
+import Ordertable from "./OrderTable";
 
+function Footer({order,showorder}) {
 
-function Footer() {
-    const total_menu = 0;
-    const total_price = 0;
-    const orderlist = null;
-    
+    //최종 가격과 최종 메뉴 갯수 계산
+    let total_price = 0;
+    Object.keys(order["order"]).map((key) => {
+        total_price += order["order"][key].total_price;
+    });
+    const total_menu = Object.keys(order["order"]).length;
+    //
+    // 주문 목록에 담을 State 배열을 Order변수에 저장
+    const Order=order["order"];
+    //
     return (
         <div className="footer_container">
             <div className="order_list">
-                {orderlist}
+                <Ordertable order={Order} set_order_list={showorder}></Ordertable>
             </div>
             <div className="order">
                 <div className="grid">
