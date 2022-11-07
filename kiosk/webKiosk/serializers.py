@@ -8,7 +8,7 @@ class MenuSerializer(serializers.ModelSerializer):
     explain=serializers.CharField(default="None")
     class Meta:
         model=Menu
-        fields=('market_name','priority','menu_name','menu_image','price','explain')
+        fields=('market_name','priority','menu_name','menu_image','price','explain','is_forbidden')
 class CategorySerializer(serializers.ModelSerializer):
     priority=serializers.IntegerField(default=100)
     class Meta:
@@ -18,12 +18,12 @@ class OptionSerializer(serializers.ModelSerializer):
     priority=serializers.IntegerField(default=100)
     class Meta:
         model=Option
-        fields=('option_list','menu_name','priority')
+        fields=('option_name','option_list','priority')
 class OrderSerializer(serializers.ModelSerializer):
     is_new=serializers.BooleanField(default=True)
     class Meta:
         model=Order
-        fields=('market_name','menu_list','all_price','create_date','is_new','take_out')
+        fields=('market_name','table_num','order_num','menu_list','all_price','create_date','is_new','take_out')
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
@@ -33,12 +33,20 @@ class MecaSerializer(serializers.Serializer):
     market_name=serializers.CharField()
     category_name=serializers.CharField()
     menu_set=serializers.CharField(default="None")#문자열
+class OpmeSerializer(serializers.Serializer):
+    market_name=serializers.CharField()
+    menu_name=serializers.CharField()
+    option_set=serializers.CharField(default='None')
+
 class MarketSerializer(serializers.Serializer):
     market_name=serializers.CharField()
+    menu_name=serializers.CharField(default='None')
+    category_name=serializers.CharField(default='None')
+    option_name=serializers.CharField(default='None')
 class GetDataSerializer(serializers.Serializer):
     data=serializers.CharField()
 class UpdateSerializer(serializers.Serializer):#메뉴,카데고리,옵션
-    old=serializers.CharField()
     market_name=serializers.CharField()
+    old_name=serializers.CharField()
     new=serializers.CharField()
 

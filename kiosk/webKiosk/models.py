@@ -10,6 +10,8 @@ class Menu(models.Model):
     menu_image=models.ImageField(upload_to='kiosk',default="default.png")
     price=models.IntegerField()
     explain=models.CharField(max_length=400,default="None")
+    is_forbidden=models.BooleanField(default=False)
+    option=models.ManyToManyField("Option")
     class Meta:
         ordering = ["priority","id"]
         db_table='menu'
@@ -18,7 +20,7 @@ class Menu(models.Model):
 class Category(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
-    menu_set=models.ManyToManyField("Menu",through="Bridge")
+    menu_set=models.ManyToManyField("Menu",through="Meca")
     category_name=models.CharField(max_length=200,unique=True)
     priority=models.IntegerField(default=100)
     class Meta:
@@ -26,16 +28,20 @@ class Category(models.Model):
         db_table='category'
     def __str__(self):
         return self.category_name
-class Bridge(models.Model):
+class Meca(models.Model):
     menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
     category=models.ForeignKey("Category",on_delete=models.CASCADE)
     class Meta:
-        db_table="bridge"
-
-class Option(models.Model):#{"option_list":'{"옵션셋명":["옵션1",~]}'}
+        db_table="meca"
+class Opme(models.Model):
+    menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
+    option=models.ForeignKey("Option",on_delete=models.CASCADE)
+    class Meta:
+        db_table="opme"
+class Option(models.Model):#{"option_name":"이름","option_list":'["옵션1",~]',"priority":""},옵션 따로 저장할 것!
+    option_name=models.CharField(max_length=200)
     option_list=models.CharField(max_length=500)
     priority=models.IntegerField(default=100)
-    menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
     class Meta:
         ordering = ["priority","id"]
         db_table='option'
@@ -45,6 +51,8 @@ class Option(models.Model):#{"option_list":'{"옵션셋명":["옵션1",~]}'}
 class Order(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
+    table_num=models.IntegerField(default=0)#테이블번호,0일시 예외처리
+    order_num=models.IntegerField(default=0)#주문번호
     menu_list=models.TextField()#{"menu_list":'{"메뉴명1":{"num":2,"option":{"맵기":"보통","양":"많이"},"demand":"내용"}}',~}
     all_price=models.IntegerField()
     create_date=models.DateTimeField()
@@ -59,6 +67,7 @@ class Account(models.Model):
     userid=models.CharField(unique=True,max_length=100)
     password=models.CharField(max_length=100)
     market_name=models.CharField(unique=True,max_length=200)
+    is_approved=models.BooleanField(default=False)
     class Meta:
         db_table='account'
     def __str__(self):

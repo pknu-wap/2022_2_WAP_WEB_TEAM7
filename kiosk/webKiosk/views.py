@@ -1,10 +1,9 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import *
 from .serializers import *
+from .views_function import *
 from rest_framework import status
-from rest_framework.decorators import api_view
 from django.http.response import HttpResponse
 import json
 import bcrypt
@@ -33,7 +32,7 @@ class CategoryAPI:
                 serializer = CategorySerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-    class Update(APIView):#테스트 필요
+    class Update(APIView):#test
         def post(self,request,format=None):
             serializer=UpdateSerializer(request.data)
             if serializer.is_valid():
@@ -41,11 +40,12 @@ class CategoryAPI:
                     old_name,new_data=get_old_new_data(serializer)
                     account=get_account_object(serializer)
                     data=json.loads(new_data)
-                    CategorySave(account,data)
-                    Category.objects.get(category_name=old_name).delete()
+                    CategoryUpdate(account,old_name,data)
                 except:return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
                 return Response(serializer.data)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    class Delete(APIView):#GetDataSerializer
+        pass
 
     
 class OrderAPI:
@@ -58,7 +58,51 @@ class OrderAPI:
                 OrderSave(account,serializer)
                 return Response(serializer.data, status = status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class Read_new(APIView):#신규 주문 목록 전달(사장),test
+        def post(self,request,format=None):
+            serializer=MarketSerializer(data=request.data)
+            if serializer.is_valid():
+                account=get_account_object(serializer)
+                if account==None: return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                queryset=Order.objects.filter(account=account,is_new=True)
+                serializer=OrderSerializer(queryset,many=True)
+                return Response(serializer.data)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class Read_all(APIView):#모든 주문 목록 전달,test
+        def post(self,request,format=None):
+            serializer=MarketSerializer(data=request.data)
+            if serializer.is_valid():
+                account=get_account_object(serializer)
+                if account==None: return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                queryset=Order.objects.filter(account=account)
+                serializer=OrderSerializer(queryset,many=True)
+                return Response(serializer.data)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class Delete(APIView):#전달받은 주문 삭제,test
+        def post(self,request,format=None):
+            serializer=OrderSerializer(data=request.data)
+            if serializer.is_valid():
+                account=get_account_object(serializer)
+                order=get_perfect_order_object(account,serializer)
+                if account==None or order==None: 
+                    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                order.delete()
+                queryset=Order.objects.filter(account=account)
+                serializer=OrderSerializer(queryset,many=True)
+                return Response(serializer.data)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class Accept(APIView):
+        pass
 class MenuAPI:
+    class Create(APIView):#메뉴 받기(사장),완성
+        def post(self,request,format=None):
+            serializer = MenuSerializer(data=request.data)
+            if serializer.is_valid():
+                account=get_account_object(serializer)
+                if account==None: return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                MenuSave(account,serializer)
+                return Response(serializer.data, status = status.HTTP_201_CREATED)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     class Read(APIView):#메뉴전달(사장),완성
         def post(self,request,format=None):#메뉴전체
             serializer=MarketSerializer(data=request.data)
@@ -69,15 +113,10 @@ class MenuAPI:
                 serializer = MenuSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-    class Create(APIView):#메뉴 받기(사장),완성
-        def post(self,request,format=None):
-            serializer = MenuSerializer(data=request.data)
-            if serializer.is_valid():
-                account=get_account_object(serializer)
-                if account==None: return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-                MenuSave(account,serializer)
-                return Response(serializer.data, status = status.HTTP_201_CREATED)
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    class Update(APIView):
+        pass
+    class Delete(APIView):
+        pass    
 class MecaAPI:
     class Management(APIView):#메카연결(사장),완성->#{"market_name":"S","category_name":"","menu_set":'["메뉴1",~]'}
         def post(self,request,format=None):
@@ -105,119 +144,37 @@ class MecaAPI:
                 serializer=MenuSerializer(query_set,many=True)
                 return Response(serializer.data)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-class NewOrderLoadAPI(APIView):#신규 주문 목록 전달(사장)
-    def post(self,request,format=None):
-        queryset=Order.objects.filter(is_new=True)
-        serializer=OrderSerializer(queryset,many=True)
-        return Response(serializer.data)
-class AllOrderLoadAPI(APIView):#모든 주문 목록 전달
-    pass
-class DeleteOrderAPI(APIView):#전달받은 주문 삭제
-    pass
-class OptionSaveAPI(APIView):#옵션 받아서 생성/연결->{"market_name":"","menu_name":"연결메뉴명","option_list":'{"옵션셋명":["옵션1",~]}'}
-    def post(self,request,format=None):
+class OpmeAPI:
+    class Management(APIView):
         pass
-class OptionLoadAPI(APIView):#메뉴 받고 옵션 전달
-    pass
-class Login(APIView):
-    pass
-class MakeAcount(APIView):
-    def get(self,request,format=None):#get일시 id존재여부 확인
-        serializer=GetDataSerializer(data=request.data)
-        if serializer.is_valid():
-            if is_id_exist(serializer):
-                HttpResponse("id is already exist")
-            HttpResponse("available id")
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
-    def post(self,request,format=None):
-        serializer=AccountSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()#테스트용
-            return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-def index(request):
-    anydata=Account.objects.all()
-    context={'anydata':anydata}
-    return render(request,'webKiosk/hello.html',context)
-def json_to_dict(serializer):#GetData용
-    dictionary=serializer.data["data"]
-    dictionary=json.loads(dictionary)
-    return dictionary
-def is_id_exist(serializer):
-    the_id=serializer['data']
-    try:
-        Account.objects.get(user_id=the_id)
-        return True
-    except: return False
-def get_account_object(serializer):
-    market_name=serializer.data['market_name']
-    try:account=Account.objects.get(market_name=market_name)
-    except:return None
-    return account
-def get_category_object(account,serializer):
-    category_name=serializer.data['category_name']
-    try:category=Category.objects.get(account=account,category_name=category_name)
-    except:return None
-    return category
-def get_menu_list(account,serializer):
-    menu_set=serializer.data['menu_set']
-    menu_list=[]
-    try:
-        menu_set=json.loads(menu_set)
-        for menu_name in menu_set:
-            menu=Menu.objects.get(account=account,menu_name=menu_name)
-            menu_list.append(menu)
-    except:return None
-    return menu_list
-def get_old_new_data(serializer):
-    data=serializer.data
-    old_data=data['old']
-    new_data=data['new']
-    return old_data,new_data
+    class Read(APIView):
+        pass
+class OptionAPI:#같은 가게에서 이름 안 겹치게 만들어야함
+    class Create(APIView):#{"option_name":"이름","option_list":'["옵션1",~]',"priority":""}
+        def post(self,request,format=None):
+            pass
+    class Read(APIView):#메뉴 받고 옵션 전달
+        pass
+    class Update(APIView):
+        pass
+    class Delete(APIView):
+        pass
+class AccountAPI:
+    class Login(APIView):
+        pass
+    class MakeAccount(APIView):
+        def get(self,request,format=None):#get일시 id존재여부 확인
+            serializer=GetDataSerializer(data=request.data)
+            if serializer.is_valid():
+                if is_id_exist(serializer):
+                    HttpResponse("id is already exist")
+                HttpResponse("available id")
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
+        def post(self,request,format=None):
+            serializer=AccountSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()#테스트용
+                return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-def CategorySave(account,data):
-    category=Category(
-        account=account,
-        market_name=data['market_name'],
-        category_name=data['category_name'],
-        priority=data['priority'],
-    )
-    category.save()
-def MenuSave(account,serializer):
-    data=serializer.data
-    try:
-        menu=Menu(
-            account=account,
-            market_name=data['market_name'],
-            priority=data['priority'],
-            menu_name=data['menu_name'],
-            menu_image=data['menu_image'],
-            price=data['price'],
-            explain=data['explain'],
-        )
-    except:
-        menu=Menu(
-            account=account,
-            market_name=data['market_name'],
-            priority=data['priority'],
-            menu_name=data['menu_name'],
-            price=data['price'],
-            explain=data['explain'],
-        )
-    menu.save()
-def OrderSave(account,serializer):
-    data=serializer.data
-    order=Order(
-        account=account,
-        menu_list=data['menu_list'],
-        all_price=data['all_price'],
-        create_date=data['create_date'],
-        is_new=data['is_new'],
-        take_out=data['take_out']
-    )
-    order.save()
-def MecaManage(category,menu_list):
-    Bridge.objects.filter(category=category).delete()
-    for menu in menu_list:
-        Bridge(menu=menu,category=category).save()#없는데 있을시
 
