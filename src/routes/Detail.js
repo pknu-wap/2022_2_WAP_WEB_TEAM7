@@ -8,6 +8,7 @@ function Detail(props){
   let [order_count,set_order_count]=useState(1);
     // 주문담기 선택시 메뉴의 정보를 담을 State 변수
   const [order_list, set_order_list] = useState([]);
+  
   function save_order(){
     let menu_name=props.name
     let option3 = document.querySelector('input[name=option1]:checked');
@@ -19,7 +20,7 @@ function Detail(props){
     let option2 = document.querySelector('input[name=option2]:checked').value;
    
     let total_price = order_count*(props.price+detail_price1+detail_price2)
-    let info= {"menu_name" : menu_name, "option1" : option1, "option2" : option2, "total_price" : total_price, "order_count" : order_count}
+    let info= { "menu_name" : menu_name, "option1" : option1, "option2" : option2, "total_price" : total_price, "order_count" : order_count}
     props.showlist(info)
     props.setwindow(false)
 

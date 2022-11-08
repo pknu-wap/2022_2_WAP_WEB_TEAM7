@@ -40,9 +40,11 @@ function Menu({foodname, onCreate}) {
 
 // Order_list를 console로 보여주는 함수, 주문 목록은 ordered_list에 저장되어 있음
 function showorder(order_list){ 
-  console.log(order_list)
+  console.log(ordered_list)
   set_ordered_list([...ordered_list,order_list])
 }
+//
+
 //
 
 function Gimbap() {
@@ -155,7 +157,7 @@ function Side() {
             <button onClick={()=>{setMode('side');}}>사이드</button>
             </div>
             {content}
-            <Footer order={[...ordered_list]} showorder={showorder}/>
+            <Footer order={ordered_list} showorder={set_ordered_list}/>
         </div>
     )
   }  

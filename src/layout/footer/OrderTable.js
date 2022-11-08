@@ -4,7 +4,13 @@ import "./OrderTable.css"
 
 
 
-const Ordertable=(order, set_order_list)=>{
+const Ordertable=(props)=>{
+  let order=props.order
+  function editOrder(e){
+    const index=e.target.parentNode.parentNode.id
+    console.log("select id", index)
+    props.editOrder(index)
+  }
   //calculate total price
 return(
 <div className="tableContainer">
@@ -19,13 +25,13 @@ return(
     </tr>
   </thead>
   <tbody>
-  {Object.keys(order["order"]).map((key) => {
+  {Object.keys(order).map((key) => {
                 return (<tr id={key}> 
-                  <th scope="row">{key}</th>
-                    <td>{order["order"][key].menu_name}</td>
-                    <td>{order["order"][key].order_count}</td>
-                    <td>{order["order"][key].total_price}</td>
-                    <td><button className="minus_button">-</button></td>
+                  <th>{key}</th>
+                    <td>{order[key].menu_name}</td>
+                    <td>{order[key].order_count}</td>
+                    <td>{order[key].total_price}</td>
+                    <td><button className="minus_button" onClick={editOrder}>-</button></td>
                     </tr>
                   )
             })}
@@ -34,5 +40,6 @@ return(
 </div>
     )
 };
+
 
 export default Ordertable;
