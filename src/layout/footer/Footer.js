@@ -2,7 +2,7 @@ import React from "react";
 import "./Footer.css";
 import Ordertable from "./OrderTable";
 
-function Footer({order,showorder}) {
+function Footer(order,showorder) {
 
     //최종 가격과 최종 메뉴 갯수 계산
     let total_price = 0;
