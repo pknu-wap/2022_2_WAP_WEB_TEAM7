@@ -34,13 +34,16 @@ SECRET_KEY=get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1',]
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '*',
+    ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #'corsheaders', #딴 곳에서 장고서버 접속
+    'corsheaders', #딴 곳에서 장고서버 접속
     'webKiosk.apps.WebkioskConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    #'corsheaders.middleware.CorsMiddleware', #딴 곳에서 장고서버 접속
+    'corsheaders.middleware.CorsMiddleware', #딴 곳에서 장고서버 접속
     
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -144,7 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 #STATIC_ROOT=os.path.join(BASE_DIR,'static') #딴 곳에서 장고서버 접속
 
-"""
+
 #딴 곳에서 장고서버 접속
 ##CORS
 CORS_ORIGIN_ALLOW_ALL=True
@@ -170,4 +173,3 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
-"""

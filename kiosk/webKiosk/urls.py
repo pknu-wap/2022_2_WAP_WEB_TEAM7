@@ -27,6 +27,7 @@ client_patterns=[
 ]
 
 urlpatterns=[
+    path('test/',TestAPI.as_view()),
     path('admin/meet/', admin.site.urls),
     path('',include(customer_patterns)),
     path('client/',include(client_patterns)),

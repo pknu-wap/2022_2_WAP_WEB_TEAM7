@@ -11,7 +11,7 @@ class Menu(models.Model):
     price=models.IntegerField()
     explain=models.CharField(max_length=400,default="None")
     is_forbidden=models.BooleanField(default=False)
-    option=models.ManyToManyField("Option")
+    option_set=models.ManyToManyField("Option",through="Opme")
     class Meta:
         ordering = ["priority","id"]
         db_table='menu'
@@ -21,7 +21,7 @@ class Category(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
     menu_set=models.ManyToManyField("Menu",through="Meca")
-    category_name=models.CharField(max_length=200,unique=True)
+    category_name=models.CharField(max_length=200)
     priority=models.IntegerField(default=100)
     class Meta:
         ordering = ["priority","id"]
@@ -29,16 +29,19 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 class Meca(models.Model):
+    account=models.ForeignKey("Account",on_delete=models.CASCADE)
     menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
     category=models.ForeignKey("Category",on_delete=models.CASCADE)
     class Meta:
         db_table="meca"
 class Opme(models.Model):
+    account=models.ForeignKey("Account",on_delete=models.CASCADE)
     menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
     option=models.ForeignKey("Option",on_delete=models.CASCADE)
     class Meta:
         db_table="opme"
 class Option(models.Model):#{"option_name":"이름","option_list":'["옵션1",~]',"priority":""},옵션 따로 저장할 것!
+    account=models.ForeignKey("Account",on_delete=models.CASCADE)
     option_name=models.CharField(max_length=200)
     option_list=models.CharField(max_length=500)
     priority=models.IntegerField(default=100)

@@ -3,12 +3,14 @@ from dataclasses import field
 from rest_framework import serializers
 from .models import *
 
-class MenuSerializer(serializers.ModelSerializer):
+class MenuSerializer(serializers.ModelSerializer):#사진때매 어쩔수 없음
     priority=serializers.IntegerField(default=1000)
     explain=serializers.CharField(default="None")
     class Meta:
         model=Menu
-        fields=('market_name','priority','menu_name','menu_image','price','explain','is_forbidden')
+        fields=('id','market_name','priority','menu_name','menu_image','price','explain','is_forbidden')
+class Test(serializers.Serializer):
+    pass
 class CategorySerializer(serializers.ModelSerializer):
     priority=serializers.IntegerField(default=100)
     class Meta:
@@ -27,7 +29,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
-        fields=('userid','password','market_name')
+        fields=('userid','password','market_name','is_approved')
 
 class MecaSerializer(serializers.Serializer):
     market_name=serializers.CharField()
