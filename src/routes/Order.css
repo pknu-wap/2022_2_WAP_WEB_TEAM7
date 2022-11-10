@@ -1,0 +1,30 @@
+.finish_order_list{
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-65%, -50%);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+#back button {
+  width: 5rem;
+  height: 3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #292929;
+  border-radius: 7px;
+  background-color: #ffbc0d;
+  position: absolute;
+  left: 10%;
+  top: -50%;
+  transform: translate(-160%, -143%);
+}
+  
+#back button:hover {
+  filter: brightness(1.1);
+}
+  
+#back button:active {
+  filter: brightness(0.9);
+}

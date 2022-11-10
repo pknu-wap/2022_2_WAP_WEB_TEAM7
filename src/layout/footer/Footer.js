@@ -8,6 +8,13 @@ function Footer(order) {
     function clearAll(){
         order.showorder([])
     }
+    
+    //주문 버튼 클릭 시 다음 페이지로 이동
+    function orderClick(e) {
+        
+        window.location.href = "/order"
+    }
+
     //빼기 버튼 클릭시 주문 목록에서 해당 메뉴 삭제
     function editOrder(id){
         const ID=Number(id)
@@ -37,7 +44,7 @@ function Footer(order) {
                     <span>{total_price}</span>
                 </div>
                 <button id="cancel_button" onClick={clearAll}>전체 취소</button>
-                <button id="order_button">주문</button>
+                <button id="order_button" onClick={orderClick}>주문</button>
             </div>
         </div>
     )
