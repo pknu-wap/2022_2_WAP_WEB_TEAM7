@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Menu.css";
 import gimbap_list from "../food/gimbap_list.json"
 import ramyeon_list from "../food/ramyeon_list.json"
@@ -8,6 +8,7 @@ import Footer from "../layout/footer/Footer";
 import Modal from 'react-modal';
 import Detail from "./Detail";
 import {customStyles} from "../Modal_design";
+import axios from 'axios'
 
 function Menu({foodname, onCreate}) {
   //추가 모달 창 열고 닫기 관련 변수 State
@@ -19,14 +20,68 @@ function Menu({foodname, onCreate}) {
   // 주문 목록에 담을 State 배열
   const [ordered_list, set_ordered_list] = useState([]);
   // 주문 목록에 확인용 코드 콘솔에 주문목록이 출력됨
-  console.log("주문목록", ordered_list)
-  //
+  console.log("주문목록",ordered_list);
+  // 카테고리 목록을 담을 state 변수
+  const [category, set_category] = useState("");
+  // 메뉴 목로을 담을 state 변수
+  const [TotalMenu, set_menu] = useState([]);
+  //카테고리 목록을 불러오는 함수
+  async function Category() {
+    const url="http://211.220.33.201/webKiosk/client/category/read/"
+    try {
+    // POST 요청은 body에 실어 보냄
+      const response=await axios.post(url, {
+        market_name: 'S'
+      });
+      console.log(response.data);
+      set_category(response.data);
+      return response.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  //카테고리 목록에 따른 메뉴를 불러오는 함수
+  function MenuList() {
+    const url="http://211.220.33.201/webKiosk/client/meca/read/"
+    let TotalMenu={};
+    Object.keys(category).map(async (key)=>{
+    try {
+      // POST 요청은 body에 실어 보냄
+        const response=await axios.post(url, {
+          market_name: 'S', category_name : category[key].category_name
+        });
+        console.log(category[key].category_name,"-",JSON.parse(response.data), typeof(response.data));
+        TotalMenu[category[key].category_name]=response.data;
+        
+      } catch (e) {
+        console.error(e);
+      }
+    })
+    console.log("TotalMenu",TotalMenu);
+    set_menu(TotalMenu);
+    return TotalMenu;
+    }
+//함수 랜더링 시 1번째 useEffect 실행-> category state 변수 변경 시 두번째 useEffect 실행
+// 순차적으로   DB에서 카테고리 목록을 불러오고, 카테고리 목록에 따른 메뉴를 불러옴
+useEffect(()=>{
+  Category();
+
+},[])
+useEffect(() => {
+    MenuList();
+}, [category]);
+
+//  useEffect(() => {
+//     TotalMenu.map((menu)=>console.log(menu));
+//   }, [TotalMenu]);
+
   
 
   const [inputs, setInputs] = useState({
     dialog: 0,
     number: 1,
   });
+  //서버와 연결 테스트용 리스트 추가
   const gimbapList = gimbap_list;
   const ramyeonList = ramyeon_list;
   const tteokbokkiList = tteokbokki_list;
@@ -44,10 +99,10 @@ function showorder(order_list){
   set_ordered_list([...ordered_list,order_list])
 }
 //
-
 //
-
 function Gimbap() {
+  console.log("to",TotalMenu['cate3'])
+
   return(
     <div className="order_container">
       {gimbapList.map((menu) => (

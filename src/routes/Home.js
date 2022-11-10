@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import axios from 'axios'
 function test() {
-    axios.post("http://192.168.0.38:8080/webKiosk/client/menu/read/",{
+    axios.post("http://211.220.33.201/webKiosk/client/menu/read/",{
         market_name:'S'}).then(response=>{console.log(response);
         })
     }
