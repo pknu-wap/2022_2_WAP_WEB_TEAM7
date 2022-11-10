@@ -9,7 +9,6 @@ import Modal from 'react-modal';
 import Detail from "./Detail";
 import {customStyles} from "../Modal_design";
 import axios from 'axios'
-
 function Menu({foodname, onCreate}) {
   //추가 모달 창 열고 닫기 관련 변수 State
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -91,6 +90,7 @@ useEffect(() => {
   function Clicked(menu){
     set_selected_menu(menu)
     setModalIsOpen(true);
+
   };
 
 // Order_list를 console로 보여주는 함수, 주문 목록은 ordered_list에 저장되어 있음
@@ -100,9 +100,45 @@ function showorder(order_list){
 }
 //
 //
-function Gimbap() {
-  console.log("to",TotalMenu['cate3'])
 
+
+//카테고리 관련 state 변수
+//카테고리 리스트 state변수
+//선택한 카테고리 state변수
+//메뉴를 불러오는 함수
+
+
+
+  useEffect(() => {
+   async function cate(){
+      const cateList=await axios.post("http://192.168.0.38:8080/webKiosk/client/category/read/",{
+      market_name:'S'});
+      set_category(cateList.data)
+   }
+      cate()
+    },[]);
+    console.log("catename",category) 
+    
+    function LoadMenu(){
+
+      let MenuList=[]
+        Object.keys(category).map((key)=>{
+                console.log("test")
+
+        console.log("key",category[key])
+        const menu = category[key].category_name;
+        MenuList.push(menu)
+        console.log(typeof(menu))
+        axios.post("http://192.168.0.38:8080/webKiosk/client/meca/read/",{
+           market_name:'S',category_name : menu}).then(response=>{console.log("t",response.data,MenuList)});
+        })
+      }
+    
+
+//
+//category 별 메뉴를 get을 통해 불러오는 함수
+
+function Gimbap() {;
   return(
     <div className="order_container">
       {gimbapList.map((menu) => (
@@ -206,7 +242,7 @@ function Side() {
     return (
         <div>
           <div className="categories">
-            <button onClick={()=>{setMode('gimbap');}}>김밥</button>
+            <button onClick={()=>{setMode('gimbap')}}>김밥</button>
             <button onClick={()=>{setMode('ramyeon');}}>라면</button>
             <button onClick={()=>{setMode('tteokbokki');}}>떡볶이</button>
             <button onClick={()=>{setMode('side');}}>사이드</button>
