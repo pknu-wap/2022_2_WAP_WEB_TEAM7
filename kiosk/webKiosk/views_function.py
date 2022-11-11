@@ -19,10 +19,13 @@ def get_name_set(model):
     elif model==Option:
         name_set='option_set'
     return name_set
-def get_dic(account,model,serializer):
+def get_dic(account,model,**vargs):
     dic={"account":account}
     name=get_name(model)
-    dic[name]=serializer.data[name]
+    try:dic[name]=vargs[name]
+    except:#비장의 수단
+        for va in vargs:
+            dic[va]=vargs[va]
     return dic
 def json_to_dict(serializer):#GetData용
     dictionary=serializer.data["data"]

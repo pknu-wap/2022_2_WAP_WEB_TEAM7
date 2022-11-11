@@ -9,27 +9,25 @@ class MenuSerializer(serializers.ModelSerializer):#사진때매 어쩔수 없음
     class Meta:
         model=Menu
         fields=('id','market_name','priority','menu_name','menu_image','price','explain','is_forbidden')
-class Test(serializers.Serializer):
-    pass
 class CategorySerializer(serializers.ModelSerializer):
     priority=serializers.IntegerField(default=100)
     class Meta:
         model=Category
-        fields=('market_name','category_name','priority')
+        fields=('id','market_name','category_name','priority')
 class OptionSerializer(serializers.ModelSerializer):
     priority=serializers.IntegerField(default=100)
     class Meta:
         model=Option
-        fields=('option_name','option_list','priority')
+        fields=('id','market_name','option_name','option_list','priority')
 class OrderSerializer(serializers.ModelSerializer):
     is_new=serializers.BooleanField(default=True)
     class Meta:
         model=Order
-        fields=('market_name','table_num','order_num','menu_list','all_price','create_date','is_new','take_out')
+        fields=('id','market_name','table_num','order_num','menu_list','all_price','create_date','is_new','take_out')
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
-        fields=('userid','password','market_name','is_approved')
+        fields=('id','userid','password','market_name','is_approved')
 
 class MecaSerializer(serializers.Serializer):
     market_name=serializers.CharField()
@@ -51,4 +49,8 @@ class UpdateSerializer(serializers.Serializer):#메뉴,카데고리,옵션
     market_name=serializers.CharField()
     old_name=serializers.CharField()
     new=serializers.CharField()
+class OrderUpdateSerializer(serializers.Serializer):
+    old_order=serializers.CharField()
+    new=serializers.CharField()
+    market_name=serializers.CharField()
 

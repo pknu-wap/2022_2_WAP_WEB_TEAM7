@@ -6,7 +6,7 @@ class Menu(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
     priority=models.IntegerField(default=1000)
-    menu_name=models.CharField(max_length=200,unique=True)
+    menu_name=models.CharField(max_length=200)
     menu_image=models.ImageField(upload_to='kiosk',default="default.png")
     price=models.IntegerField()
     explain=models.CharField(max_length=400,default="None")
@@ -17,6 +17,14 @@ class Menu(models.Model):
         db_table='menu'
     def __str__(self):
         return self.menu_name
+    def update(self,**vargs):
+        if 'priority' in vargs:self.priority=vargs['priority']
+        if 'menu_name' in vargs:self.menu_name=vargs['menu_name']
+        if 'menu_image' in vargs:self.menu_image=vargs['menu_image']
+        if 'price' in vargs:self.price=vargs['price']
+        if 'explain' in vargs:self.explain=vargs['explain']
+        if 'is_forbidden' in vargs:self.is_forbidden=vargs['is_forbidden']
+        self.save()
 class Category(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
@@ -28,6 +36,10 @@ class Category(models.Model):
         db_table='category'
     def __str__(self):
         return self.category_name
+    def update(self,**vargs):
+        if 'category_name' in vargs:self.category_name=vargs['category_name']
+        if 'priority' in vargs:self.priority=vargs['priority']
+        self.save()
 class Meca(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     menu=models.ForeignKey("Menu",on_delete=models.CASCADE)
@@ -40,8 +52,9 @@ class Opme(models.Model):
     option=models.ForeignKey("Option",on_delete=models.CASCADE)
     class Meta:
         db_table="opme"
-class Option(models.Model):#{"option_name":"이름","option_list":'["옵션1",~]',"priority":""},옵션 따로 저장할 것!
+class Option(models.Model):#{"market_name":"","option_name":"","option_list":'["옵션1",~]',"priority":""},옵션 따로 저장할 것!
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
+    market_name=models.CharField(max_length=200)
     option_name=models.CharField(max_length=200)
     option_list=models.CharField(max_length=500)
     priority=models.IntegerField(default=100)
@@ -49,7 +62,12 @@ class Option(models.Model):#{"option_name":"이름","option_list":'["옵션1",~]
         ordering = ["priority","id"]
         db_table='option'
     def __str__(self):
-        return self.option_list
+        return self.option_name
+    def update(self,**vargs):
+        if 'option_name' in vargs:self.option_name=vargs['option_name']
+        if 'option_list' in vargs:self.option_list=vargs['option_list']
+        if 'priority' in vargs:self.priority=vargs['priority']
+        self.save()
 
 class Order(models.Model):
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
@@ -66,6 +84,13 @@ class Order(models.Model):
         db_table='order'
     def __str__(self):
         return str(self.create_date)
+    def update(self,**vargs):
+        if 'table_num' in vargs: self.table_num=vargs['table_num']
+        if 'menu_list' in vargs: self.menu_list=vargs['menu_list']
+        if 'all_price' in vargs: self.all_price=vargs['all_price']
+        if 'is_new' in vargs:self.is_new=vargs['is_new']
+        if 'take_out' in vargs:self.take_out=vargs['take_out']
+        self.save()
 class Account(models.Model):
     userid=models.CharField(unique=True,max_length=100)
     password=models.CharField(max_length=100)
@@ -75,3 +100,8 @@ class Account(models.Model):
         db_table='account'
     def __str__(self):
         return self.market_name
+    def update(self,**vargs):
+        if 'password' in vargs: self.password=vargs['password']
+        if 'market_name' in vargs: self.market_name=vargs['market_name']
+        if 'is_approved' in vargs: self.is_approved=vargs['is_approved']
+        self.save()
