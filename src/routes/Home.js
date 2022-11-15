@@ -9,9 +9,10 @@ function Home() {
     
     const [url, setUrl] = useState(null);
     function test() {
-        const data=axios.post("http://127.0.0.1:8000/webKiosk/client/menu/read/",{
-            market_name:'S'
-            }).then(response=>{console.log(response.data)});
+        const data=axios.post("http://127.0.0.1:8000/webKiosk/client/option/read/",{
+            market_name : 'S'
+        })
+           .then(response=>{console.log(response.data)});
             }
 
     function handleClick(e) {

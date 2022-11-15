@@ -17,13 +17,15 @@ import Items from "./Items";
 
 function Menu({foodname, onCreate}) {
   // 카테고리 목록을 담을 state 변수
-  const [category, set_category] = useState("");
+  const [category, set_category] = useState([]);
   //추가 모달 창 열고 닫기 관련 변수 State
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //
-  //추가 선택된 메뉴 정보를 담을 State 변수
+  // 선택한 카테고리를 담을 변수
+  const [mode, setMode] = useState("3");
+  //
+  // 선택된 메뉴 정보를 담을 State 변수
   const [selected_menu,set_selected_menu]=useState("");
-  
   // 주문 목록에 담을 State 배열
   const [ordered_list, set_ordered_list] = useState([]);
   // 주문 목록에 확인용 코드 콘솔에 주문목록이 출력됨
@@ -39,11 +41,9 @@ function Menu({foodname, onCreate}) {
   const tteokbokkiList = tteokbokki_list;
   const sideList = side_list;
 
-  let Total_Menu={}
-  let category_list = [];
-
   // 메뉴 클릭시 선택한 메뉴 값 설정, 모달 창 열기
   function Clicked(menu){
+    console.log("selected menu",menu);
     set_selected_menu(menu)
     setModalIsOpen(true);
       };
@@ -59,7 +59,7 @@ function showorder(order_list){
 
 
 
-// 카테고리 및 메뉴 목록 불러오기
+// 카테고리 목록 불러오기
 async function Category() {
   const url="http://127.0.0.1:8000/webKiosk/client/category/read/"
   try {
@@ -74,7 +74,7 @@ async function Category() {
     console.error(e);
   }
 }
-        //카테고리 목록에 따른 메뉴를 불러오는 함수
+//카테고리 목록에 따른 메뉴를 불러오는 함수
 async function MenuList() {
   const url="http://127.0.0.1:8000/webKiosk/client/meca/read/"
   Object.keys(category).map(async (key)=>{
@@ -84,7 +84,8 @@ async function MenuList() {
         market_name: 'S', category_name : category[key].category_name
         });
         const obj={}
-        obj[category[key].category_name]=response.data
+        response.data['category_name']=category[key].category_name
+        obj[category[key].id]=response.data
         set_menu(TotalMenu=>({...TotalMenu,...obj}))
     } catch (e) {
         console.error(e);
@@ -101,12 +102,9 @@ useEffect(()=>{
 useEffect(() => {
     MenuList();
     setLoading(false)
+    setMode(`3`) 
 }, [category]);
 
-// 메뉴 출력을 위한 단일 컴포넌트
-
-//
-//category 별 메뉴를 post을 통해 불러오는 함수
 
 function Gimbap() {
   return(
@@ -197,34 +195,38 @@ function Side() {
   )
 }
 
-    const [mode, setMode] = useState('cate1');
-    let content = null;
-    if(mode === 'cate1'){
-      content =  <Items TotalMenu={TotalMenu} selected_menu={mode}></Items>
-    } else if(mode === 'ramyeon'){
-      content = <Ramyeon/>
-    } else if(mode === 'tteokbokki'){
-      content = <Tteokbokki/>
-    } else if(mode === 'side'){
-      content = <Side/>
-    }
-    // back에서 값을 불러오는 것을 대기하는 것
 
-    if (loading) {
+    // 선택한 
+    // let content = null;
+    // if(mode === 'cate3'){
+    //   content =  <Items TotalMenu={TotalMenu} selected_menu={mode}></Items>
+    // } else if(mode === 'ramyeon'){
+    //   content = <Ramyeon/>
+    // } else if(mode === 'tteokbokki'){
+    //   content = <Tteokbokki/>
+    // } else if(mode === 'side'){
+    //   content = <Side/>
+    // }
+
+
+    // back에서 값을 불러오는 것을 대기하는 것
+    if (loading || category[0] === undefined){
       return <div>로딩중...</div>;
     }
-    
+    console.log("TotalMenu",TotalMenu)
     return (
         <div>
-          {JSON.stringify(TotalMenu[`${mode}`])}
           <div className="categories">
-            
-            <button onClick={()=>{setMode('gimbap')}}>김밥</button>
-            <button onClick={()=>{setMode('ramyeon')}}>라면</button>
-            <button onClick={()=>{setMode('tteokbokki')}}>떡볶이</button>
-            <button onClick={()=>{setMode('side')}}>사이드</button>
+            {category.map((category)=>
+              <button onClick={()=>setMode(category.id)}>{`${category.category_name}`}</button>            
+            )}
           </div>
-            {content}
+          <div>
+            <Items TotalMenu={TotalMenu} selectedCategory={mode} Clicked={Clicked}></Items>
+            <Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(true)}>
+            <Detail selectedMenu={selected_menu} setwindow={setModalIsOpen} showlist={showorder}></Detail>
+            </Modal>
+          </div>
             <Footer order={ordered_list} showorder={set_ordered_list}/>
         </div>
     )
