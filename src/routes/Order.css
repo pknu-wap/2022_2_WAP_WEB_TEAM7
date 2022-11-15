@@ -2,23 +2,46 @@
   position: absolute;
   left: 50%;
   top: 20%;
-  transform: translate(-65%, -50%);
+  transform: translate(-50%, -50%);
   font-size: 2rem;
   font-weight: 600;
 }
 
-#back button {
-  width: 5rem;
-  height: 3rem;
+#finalCheck button {
+  width: 8rem;
+  height: 4rem;
   font-size: 1rem;
   font-weight: 600;
   color: #292929;
   border-radius: 7px;
-  background-color: #ffbc0d;
+  background-color: blue;
   position: absolute;
-  left: 10%;
-  top: -50%;
-  transform: translate(-160%, -143%);
+  left: 100%;
+  top: 1000%;
+  transform: translate(-50%, -50%);
+}
+  
+#finalCheck button:hover {
+  filter: brightness(1.1);
+}
+  
+#finalCheck button:active {
+  filter: brightness(0.9);
+}
+
+
+#back button {
+  width: 8rem;
+  height: 4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #292929;
+  border-radius: 7px;
+  background-color: blue;
+  position: absolute;
+  left: 0%;
+  top: 1000%;
+  transform: translate(-50%, -50%);
 }
   
 #back button:hover {
@@ -28,3 +51,4 @@
 #back button:active {
   filter: brightness(0.9);
 }
+

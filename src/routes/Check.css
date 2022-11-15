@@ -1,0 +1,40 @@
+.goCounter{
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  font-size: 0.53rem;
+  font-weight: 400;
+}
+
+.orderNumber{
+    position: absolute;
+    left: 50%;
+    top: 200%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+
+#close_button button {
+  width: 8rem;
+  height: 4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #292929;
+  border-radius: 7px;
+  background-color: blue;
+  position: absolute;
+  left: 50%;
+  top: 1000%;
+  transform: translate(-50%, -50%);
+}
+  
+#close_button button:hover {
+  filter: brightness(1.1);
+}
+  
+#close_button button:active {
+  filter: brightness(0.9);
+}
