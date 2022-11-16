@@ -38,7 +38,7 @@ function Footer(order) {
             </div>
             <div className="order">
                 <div className="grid">
-                    <span>주문 수량</span>
+                    <span>주문 건수</span>
                     <span>{total_menu}</span>
                     <span>주문 금액</span>
                     <span>{total_price}</span>

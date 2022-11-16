@@ -9,7 +9,6 @@ function Items({TotalMenu,selectedCategory,Clicked}) {
 
   return(
     <div className="order_container">
-      {console.log("Items' TotalMenu",TotalMenu)}
       {TotalMenu[`${selectedCategory}`].map((Menus) => (
     <React.Fragment key={Menus.id}>
     <div className="food_container" onClick={()=> Clicked(Menus)}>
