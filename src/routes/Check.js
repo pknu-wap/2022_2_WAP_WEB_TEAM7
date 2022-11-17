@@ -2,6 +2,7 @@ import React from "react";
 import "./Check.css";
 
 function Check(){
+
     function close(e) {
         window.location.href = "/"
       }
