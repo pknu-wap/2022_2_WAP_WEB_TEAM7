@@ -105,6 +105,8 @@ class CRUD:
         Serializer=get_Serializer(model)
         serializer=Serializer(data=request.data)
         if serializer.is_valid():
+            for i in serializer.data:
+                print(i)
             obj=get_obj(model,**serializer.data)
             if obj==None:return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
             obj.delete()
@@ -128,7 +130,17 @@ class CRUD:
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class TestAPI(APIView):
     def post(self,request,format=None):
-        return CRUD.Management(self,request,Opme)
+        serializer=MarketSerializer(data=request.data)
+        if serializer.is_valid():
+            if request.session['market_name']!=serializer.data['market_name']:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            #request.session['test']="haha"
+            session_id = request.session.session_key
+            dic={
+                "session_id":session_id
+            }
+            return Response(dic)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class CategoryAPI:
     class Create(APIView):#카테고리 받기(사장),완성
         def post(self,request,format=None):
@@ -227,20 +239,59 @@ class OptionAPI:#같은 가게에서 이름 안 겹치게 만들어야함
             return CRUD.Delete(self,request,Option)
 class AccountAPI:
     class Login(APIView):
-        pass
-    class MakeAccount(APIView):
-        def get(self,request,format=None):#get일시 id존재여부 확인
-            serializer=GetDataSerializer(data=request.data)
+        def post(self,request,format=None):
+            serializer=LoginSerializer(data=request.data)
             if serializer.is_valid():
-                if is_id_exist(serializer):
-                    return HttpResponse("id is already exist")
-                return HttpResponse("available id")
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) 
+                account=get_obj(Account,**serializer.data)
+                if account==None:
+                    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+                if account.is_approved==False:
+                    return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)
+                request.session['userid']=account.userid
+                request.session['market_name']=account.market_name
+                session_id=request.session.session_key
+                dic={
+                    "session_id":session_id
+                }
+                return Response(dic)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class MakeAccount(APIView):
         def post(self,request,format=None):
             serializer=AccountSerializer(data=request.data)
             if serializer.is_valid():
-                serializer.save()#테스트용
-                return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+                if serializer.data["is_approved"]==True:
+                    return Response(serializer.errors,status=status.HTTP_403_FORBIDDEN)
+                checkID=check_userid(serializer)
+                if checkID!=False:
+                    return HttpResponse(checkID)
+                checkP=check_password_safe(serializer)
+                if checkP!=False:
+                    return HttpResponse(checkP)
+                data=serializer.data
+                password=Hash(serializer)
+                dic={
+                    "userid":data["userid"],
+                    "market_name":data["market_name"],
+                    "password":password,
+                }
+                Account(**dic).save()
+                dic={
+                    "userid":serializer.data["userid"],
+                    "market_name":serializer.data["market_name"]
+                }
+                return Response(dic)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    class CheckSession(APIView):
+        def post(self,request,format=None):
+            serializer=MarketSerializer(data=request.data)
+            if serializer.is_valid():
+                if request.session['market_name']!=serializer.data['market_name']:
+                    return Response(serializer.errors,status=status.HTTP_403_FORBIDDEN)
+                session_id = request.session.session_key
+                dic={
+                    "session_id":session_id
+                }
+                return Response(dic)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 

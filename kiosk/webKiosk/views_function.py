@@ -27,6 +27,42 @@ def get_dic(account,model,**vargs):
         for va in vargs:
             dic[va]=vargs[va]
     return dic
+def Hash(serializer):
+    password=serializer.data["password"]
+    encoded_password=password.encode('utf-8')
+    hashed_password=bcrypt.hashpw(encoded_password, bcrypt.gensalt())
+    decoded_password=hashed_password.decode('utf-8')
+    return decoded_password
+def check_userid(serializer):
+    userid=serializer.data['userid']
+    errormessage="5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다."
+    if len(userid)<5 or len(userid)>20: return errormessage
+    for I in userid:
+        if I.isdigit or I.isalpha or I in ["-","_"]:
+            continue
+        else: return errormessage
+    if userid.islower()!=False:return errormessage
+    return False
+def check_password_safe(serializer):
+    password=serializer.data['password']
+    if len(password)<8:return "8자 이상이어야 합니다."
+    i=0
+    alpha=0
+    for P in password:
+        if P in ["!","@","#","$","%","^","&","*"]:
+            break
+        if (P.isalpha() or P.isdigit() or P in ["!","@","#","$","%","^","&","*"])!=True:
+            return "영문, 숫자, !@#$%^&*만 입력가능합니다."
+        if P.isalpha():alpha+=1
+        i+=1
+    if alpha<4:return "영문을 4글자 이상 입력해야합니다."
+    if i==len(password):return "!@#$%^&*은 하나 이상 입력되어야 합니다."
+    if password.isdigit()==True:return "문자도 입력되어야 합니다."
+    if password.isalpha()==True:return "숫자도 입력되어야 합니다."
+    if password.islower()==True or password.isupper()==True:
+        return "대문자와 소문자는 각각 1개이상 입력되어야합니다."
+    return False
+     
 def json_to_dict(serializer):#GetData용
     dictionary=serializer.data["data"]
     dictionary=json.loads(dictionary)

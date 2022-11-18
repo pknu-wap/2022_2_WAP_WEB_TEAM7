@@ -28,7 +28,10 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
         fields=('id','userid','password','market_name','is_approved')
-
+class LoginSerializer(serializers.Serializer):
+    userid=serializers.CharField()
+    password=serializers.CharField()
+    market_name=serializers.CharField()
 class MecaSerializer(serializers.Serializer):
     market_name=serializers.CharField()
     category_name=serializers.CharField()

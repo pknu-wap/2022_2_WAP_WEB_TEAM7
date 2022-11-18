@@ -31,13 +31,16 @@ client_patterns=[
     path('option/update/',OptionAPI.Update.as_view()),
     path('option/delete/',OptionAPI.Delete.as_view()),
 ]
+account_patterns=[
+    path('login/',AccountAPI.Login.as_view()),
+    path('signup/',AccountAPI.MakeAccount.as_view()),    
+]
 
 urlpatterns=[
     path('test/',TestAPI.as_view()),
     path('admin/meet/', admin.site.urls),
     path('',include(customer_patterns)),
     path('client/',include(client_patterns)),
-    path('',AccountAPI.MakeAccount.as_view()),
-    
-    #path('media/kiosk/',MenuImageListAPI.as_view())
+    path('account/',include(account_patterns)),
+    path('session/',AccountAPI.CheckSession.as_view()),
 ]
