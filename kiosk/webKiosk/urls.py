@@ -19,6 +19,7 @@ client_patterns=[
     path('menu/delete/',MenuAPI.Delete.as_view()),
     path('meca/management/',MecaAPI.Management.as_view()),
     path('meca/read/',MecaAPI.Read.as_view()),
+    path('meca/download/',MecaAPI.Download.as_view()),
     path('opme/management/',OpmeAPI.Management.as_view()),
     path('opme/read/',OpmeAPI.Read.as_view()),
     path('order/create/',OrderAPI.Create.as_view()),

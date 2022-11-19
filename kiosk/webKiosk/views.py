@@ -132,13 +132,16 @@ class TestAPI(APIView):
     def post(self,request,format=None):
         serializer=MarketSerializer(data=request.data)
         if serializer.is_valid():
-            if request.session['market_name']!=serializer.data['market_name']:
-                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-            #request.session['test']="haha"
-            session_id = request.session.session_key
-            dic={
-                "session_id":session_id
-            }
+            account=get_account_object(serializer)
+            category_set=Category.objects.filter(account=account)
+            dic={}
+            i=0
+            for category in category_set:
+                dic[i]={}
+                menu_set=category.menu_set.all()
+                dic[i]['category_name']=category.category_name
+                dic[i]['menu_set']=MenuSerializer(menu_set,many=True).data
+                i+=1
             return Response(dic)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class CategoryAPI:
@@ -217,6 +220,22 @@ class MecaAPI:
     class Read(APIView):#카테고리로 메뉴 보냄(손님+사장일부),완성->{"market_name":"","category_name":"카테고리명"}
         def post(self,request,format=None):
             return CRUD.MeOpRead(self,request,Meca)
+    class Download(APIView):
+        def post(self,request,format=None):
+            serializer=MarketSerializer(data=request.data)
+            if serializer.is_valid():
+                account=get_account_object(serializer)
+                category_set=Category.objects.filter(account=account)
+                dic={}
+                i=0
+                for category in category_set:
+                    dic[i]={}
+                    menu_set=category.menu_set.all()
+                    dic[i]['category_name']=category.category_name
+                    dic[i]['menu_set']=MenuSerializer(menu_set,many=True).data
+                    i+=1
+                return Response(dic)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class OpmeAPI:
     class Management(APIView):
         def post(self,request,format=None):

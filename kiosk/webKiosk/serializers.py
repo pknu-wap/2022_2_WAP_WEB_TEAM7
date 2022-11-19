@@ -40,7 +40,6 @@ class OpmeSerializer(serializers.Serializer):
     market_name=serializers.CharField()
     menu_name=serializers.CharField()
     option_set=serializers.CharField(default='None')
-
 class MarketSerializer(serializers.Serializer):
     market_name=serializers.CharField()
     menu_name=serializers.CharField(default='None')
