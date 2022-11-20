@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.urls import path,include
 from webKiosk.views import *
+from webKiosk.client import *
 
 customer_patterns=[
-    path('order/',OrderAPI.Create.as_view()),#손님 주문 넣는 곳
-    path('category/',CategoryAPI.Read.as_view()),
-    path('meca/',MecaAPI.Read.as_view()),
-    path('opme/',OpmeAPI.Read.as_view()),
+    path('category/',CustomerAPI.Category.as_view()),
+    path('order/',CustomerAPI.Order.as_view()),
+    path('download/',CustomerAPI.Download.as_view()),
+    path('meca/',CustomerAPI.Meca.as_view()),
+    path('opme/',CustomerAPI.Opme.as_view()),
 ]
 client_patterns=[
     path('category/create/',CategoryAPI.Create.as_view()),
