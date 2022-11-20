@@ -47,13 +47,3 @@
     display: inline-block;
     border-radius: 7px;
 }
-
-#order_button {
-    margin: 1px;
-    background-color: navy;
-    border: 1px solid gray;
-    font-weight: bold;
-    color: white;
-    display: inline-block;
-    border-radius: 7px;
-}

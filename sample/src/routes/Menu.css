@@ -68,3 +68,18 @@ img {
   border-radius: 7px;
   font-weight: bold;
 } */
+
+.order {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+}
+
+#order_button {
+  margin: 1px;
+  background-color: navy;
+  border: 1px solid gray;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+  border-radius: 7px;
+}

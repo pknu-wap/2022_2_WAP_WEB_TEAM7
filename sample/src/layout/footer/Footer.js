@@ -2,17 +2,13 @@ import React from "react";
 import "./Footer.css";
 import Ordertable from "./OrderTable";
 
+
 function Footer(order) {
+    
     const Order=order["order"];
     //전체 취소 버튼 클릭시 주문 목록 초기화
     function clearAll(){
         order.showorder([])
-    }
-    
-    //주문 버튼 클릭 시 다음 페이지로 이동
-    function orderClick(e) {
-        
-        window.location.href = "/order"
     }
 
     //빼기 버튼 클릭시 주문 목록에서 해당 메뉴 삭제
@@ -38,13 +34,12 @@ function Footer(order) {
             </div>
             <div className="order">
                 <div className="grid">
-                    <span>주문 수량</span>
+                    <span>주문 건수</span>
                     <span>{total_menu}</span>
                     <span>주문 금액</span>
                     <span>{total_price}</span>
                 </div>
                 <button id="cancel_button" onClick={clearAll}>전체 취소</button>
-                <button id="order_button" onClick={orderClick}>주문</button>
             </div>
         </div>
     )

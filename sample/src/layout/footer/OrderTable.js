@@ -1,9 +1,6 @@
 import "./OrderTable.css"
 
 
-
-
-
 const Ordertable=(props)=>{
   let order=props.order
   function editOrder(e){
