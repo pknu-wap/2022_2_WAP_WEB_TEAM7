@@ -6,9 +6,10 @@ import Modal from 'react-modal';
 import Check from './Check';
 
 
-function Order({setorder}){
+function Order({setorder, final_order}){
     
-    // 확인창창 추가 모달 창 열고 닫기 관연 변수 State
+    
+    // 확인창 추가 모달 창 열고 닫기 관연 변수 State
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
 
     
@@ -19,7 +20,30 @@ function Order({setorder}){
     return (
         <div className="finish_order_list">
             <hi>주문 목록</hi>
-            
+
+            <div className="orderTableContainer">
+            <table className="orderTable">
+                <thead>
+                    <tr id="tri">
+                        <th className="col">#</th>
+                        <th className="col">이름</th>
+                        <th className="col">수량</th>
+                        <th className="col">가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {Object.keys(final_order).map((key)=>{
+                             return (<tr id={key}>
+                                <th>{key}</th>
+                                  <td>{final_order[key].menu_name}</td>
+                                  <td>{final_order[key].order_count}</td>
+                                  <td>{final_order[key].total_price}</td>
+                             </tr>
+                             ) 
+                         })}
+                </tbody>
+            </table>
+            </div>      
             <div id="back">
             <button style={{color:"white"}} onClick={()=> setorder(false)}>취소</button>
             </div>

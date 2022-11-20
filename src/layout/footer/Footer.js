@@ -6,6 +6,7 @@ import Ordertable from "./OrderTable";
 function Footer(order) {
     
     const Order=order["order"];
+   
     //전체 취소 버튼 클릭시 주문 목록 초기화
     function clearAll(){
         order.showorder([])

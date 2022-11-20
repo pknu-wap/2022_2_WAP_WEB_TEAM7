@@ -52,3 +52,29 @@
   filter: brightness(0.9);
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 20px;
+}
+table td{
+  text-align: center;
+}
+.orderTable .col{
+  background-color: aqua;
+  position: sticky;
+  top: 0px;
+  margin: 0 0 0 10;
+  
+}
+.orderTableContainer{
+  border-radius: 20px;
+  height: 150px;
+  padding: 0 10px 10px 10px;
+  overflow: auto;
+  position: absolute;
+  left: 50%;
+  top: 350%;
+  transform: translate(-50%, -50%);
+}
