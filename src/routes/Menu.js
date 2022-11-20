@@ -126,7 +126,7 @@ useEffect(() => {
             <Detail selectedMenu={selected_menu} setwindow={setModalIsOpen} showlist={showorder}></Detail>
             </Modal>
             <Modal isOpen={order_moderIsOpen} onRequestClose={()=>orderModalIsOpen(true)}>
-            <Order selectedMenu={selected_menu} setorder={orderModalIsOpen} showlist={showorder}></Order>
+            <Order setorder={orderModalIsOpen} final_order={ordered_list} ></Order>
             </Modal>
           </div>
             <Footer order={ordered_list} showorder={set_ordered_list}/>
