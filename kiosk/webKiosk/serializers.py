@@ -27,7 +27,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
-        fields=('id','userid','password','market_name','is_approved')
+        fields=('id','userid','password','market_name','is_approved','max_table')
 class LoginSerializer(serializers.Serializer):
     userid=serializers.CharField()
     password=serializers.CharField()

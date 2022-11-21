@@ -96,6 +96,7 @@ class Account(models.Model):
     password=models.CharField(max_length=100)
     market_name=models.CharField(unique=True,max_length=200)
     is_approved=models.BooleanField(default=False)
+    max_table=models.IntegerField(default=0)
     class Meta:
         db_table='account'
     def __str__(self):
