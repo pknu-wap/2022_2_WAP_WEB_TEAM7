@@ -1,9 +1,5 @@
 import React, {useEffect, useState} from "react";
 import "./Menu.css";
-import gimbap_list from "../food/gimbap_list.json"
-import ramyeon_list from "../food/ramyeon_list.json"
-import tteokbokki_list from "../food/tteokbokki_list.json"
-import side_list from "../food/side_list.json"
 import Footer from "../layout/footer/Footer";
 import Modal from 'react-modal';
 import Detail from "./Detail";
@@ -112,9 +108,6 @@ useEffect(() => {
     }
     return (
         <div>
-          <div className="order">
-            <button id="order_button" onClick={orderClick}>주문</button>
-          </div>
           <div className="categories">
             {category.map((category)=>
               <button onClick={()=>setMode(category.id)}>{`${category.category_name}`}</button>            
@@ -129,6 +122,10 @@ useEffect(() => {
             <Order setorder={orderModalIsOpen} final_order={ordered_list} ></Order>
             </Modal>
           </div>
+            <div className="order_button">
+              <div className="design"/><div className="design"/>
+              <button id="order_button" onClick={orderClick}>주문</button>  
+            </div>
             <Footer order={ordered_list} showorder={set_ordered_list}/>
         </div>
     )

@@ -2,7 +2,6 @@ import React from "react";
 import "./Footer.css";
 import Ordertable from "./OrderTable";
 
-
 function Footer(order) {
     
     const Order=order["order"];
@@ -44,7 +43,6 @@ function Footer(order) {
             </div>
         </div>
     )
-    
 }
 
 export default Footer

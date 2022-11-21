@@ -58,20 +58,13 @@ img {
   border-radius: 7px;
   font-weight: bold;
 }
-/* 
-.categories button:focus {
-  margin: 1px;
-  background-color: #5676cc;
-  border: 1px solid #5076ff;
-  color: white;
-  display: inline-block;
-  border-radius: 7px;
-  font-weight: bold;
-} */
 
-.order {
+.order_button {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
+  width: 97%;
+  position: absolute;
+  margin-top: 17.9%;
 }
 
 #order_button {
@@ -82,4 +75,9 @@ img {
   color: white;
   display: inline-block;
   border-radius: 7px;
+  height: 210%;
+}
+
+#design {
+  margin: 0;
 }
