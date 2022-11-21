@@ -4,6 +4,7 @@ import Ordertable from "../layout/footer/OrderTable";
 import Footer from "../layout/footer/Footer";
 import Modal from 'react-modal';
 import Check from './Check';
+import axios from 'axios'
 
 
 function Order({setorder, final_order}){
@@ -12,12 +13,17 @@ function Order({setorder, final_order}){
     // 확인창 추가 모달 창 열고 닫기 관연 변수 State
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
 
-    const url="http://127.0.0.1:8000/webKiosk/client/order/read/all/"
-    const response= axios.post(url, {
-        menu_list: 'final_order',
-        all_price: '100',
-        create_date: '2022-01-11'
-      });
+    async function call_api(){
+        const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/option/read/",{
+            menu_list: 'final_order',
+            market_name: 'S',
+            all_price : 1000,
+            create_date : 2022-11-21
+        }).then(response=>{console.log(response.data)});
+
+        console.log(data)
+    }
+
     
 
             
