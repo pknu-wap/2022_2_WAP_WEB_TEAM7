@@ -14,8 +14,8 @@ function Order({setorder, final_order}){
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
 
     async function call_api(){
-        const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/option/read/",{
-            menu_list: 'final_order',
+        const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/order/create/",{
+            menu_list: final_order,
             market_name: 'S',
             all_price : 1000,
             create_date : 2022-11-21
