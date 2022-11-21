@@ -12,7 +12,15 @@ function Order({setorder, final_order}){
     // 확인창 추가 모달 창 열고 닫기 관연 변수 State
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
 
+    const url="http://127.0.0.1:8000/webKiosk/client/order/read/all/"
+    const response= axios.post(url, {
+        menu_list: 'final_order',
+        all_price: '100',
+        create_date: '2022-01-11'
+      });
     
+
+            
      function check(e) {
          checkModalIsOpen(true);
      }
