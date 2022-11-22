@@ -59,14 +59,6 @@ img {
   font-weight: bold;
 }
 
-.order_button {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-  width: 97%;
-  position: absolute;
-  margin-top: 17.9%;
-}
-
 #order_button {
   margin: 1px;
   background-color: navy;
@@ -75,9 +67,54 @@ img {
   color: white;
   display: inline-block;
   border-radius: 7px;
-  height: 210%;
 }
 
-#design {
-  margin: 0;
+.footer_container {
+  display: flex;
+  flex-direction: column;
+  width: 97%;
+  height: 200px;
+  /* position: fixed; */
+  background-color: #aaaaaa;
+  bottom: 0;
+  z-index: 0;
+  border: 1px solid #aaaaaa;
+  border-radius: 10px;
+  margin: 1.5%;
+}
+
+.order_list {
+    height: 150px;
+}
+
+.information {
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+
+.order {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border: 3px solid gray;
+    border-radius: 7px;
+}
+
+.grid span {
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+#cancel_button {
+    margin: 1px;
+    background-color: #ffbc0d;
+    border: 1px solid gray;
+    font-weight: bold;
+    color: #292929;
+    display: inline-block;
+    border-radius: 7px;
 }

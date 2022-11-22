@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Order.css";
-import Ordertable from "../layout/footer/OrderTable";
-import Footer from "../layout/footer/Footer";
+import Ordertable from "../components/OrderTable";
+import Menu from "./Menu";
 import Modal from 'react-modal';
 import Check from './Check';
 import axios from 'axios'
