@@ -1,29 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 import "./App.css";
 import Menu from "./Menu/Menu.js";
 import Header from "./Header";
 function App() {
   return (
-    <header>
-      <Router>
+    <BrowserRouter>
+      <header>
         <Header />
-        <Switch>
-          <Route path={"/menu"}>
-            <Menu />
-          </Route>
-          <Route path={"/album"}>
-            <Album />
-          </Route>
-          <Route path={"/pricing"}>
-            <Pricing />
-          </Route>
-          <Route path={"/"}>
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </header>
+        <Routes>
+          <Route path={"/menu"} element={<Menu />} />
+          <Route path={"/album"} element={<Album />} />
+          <Route path={"/pricing"} element={<Pricing />} />
+          <Route path={"/"} element={<Home />} />
+        </Routes>
+      </header>
+    </BrowserRouter>
   );
 }
 

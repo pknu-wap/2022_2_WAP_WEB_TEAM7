@@ -13,7 +13,7 @@ const MenuList = ({ categoryName }) => {
         category_name: categoryName,
       })
       .then((response) => {
-        setAlldata(response.data);
+        setAlldata(response.data.sessionid);
       });
     return;
   };
