@@ -2,21 +2,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Edit from "./MenuEdit/Edit";
-const MenuList = ({ categoryName }) => {
+import CreateMenu from "./CreateMenu";
+
+const MenuList = ({ categoryName, SelectTap }) => {
   //메뉴 데이터를 담을 변수
   const [Alldata, setAlldata] = useState([]);
   //전체 카테고리별 메뉴를 Alldata에 저장
   const allMenu = async () => {
     await axios
-      .post("http://127.0.0.1:8000/webKiosk/client/meca/read/", {
+      .post("http://127.0.0.1:8000/webKiosk/meca/", {
         market_name: "S",
         category_name: categoryName,
       })
       .then((response) => {
-        setAlldata(response.data.sessionid);
+        setAlldata(response.data);
       });
     return;
   };
+// 메뉴 생성 모달 창을 열고 닫는 변수
+const [IsplusOpen, setIsplusOpen] = useState(false);
+
+
   //모달 창을 열고 닫는 변수
   const [IsModalOpen, setIsModalOpen] = useState(false);
   //선택한 메뉴값을 모달에 전달하는 변수
@@ -72,14 +78,17 @@ const MenuList = ({ categoryName }) => {
                   <Edit
                     MenuInfo={selectMenu}
                     IsModalOpen={setIsModalOpen}
-                    rerender={allMenu}
                   />
+                </Modal>
+                <Modal show={IsplusOpen}>
+                  <CreateMenu SelectTap={SelectTap}IsOpen={setIsplusOpen} />
                 </Modal>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <button className="MenuPlus" onClick={()=>setIsplusOpen(true)}>메뉴 추가하기</button>
     </div>
   );
 };

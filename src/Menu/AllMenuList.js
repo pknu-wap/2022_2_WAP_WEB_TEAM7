@@ -6,7 +6,7 @@ const AllMenuList = () => {
   //전체 카테고리와 메뉴를 불러오기
   const allMenu = async () => {
     await axios
-      .post("http://127.0.0.1:8000/webKiosk/client/meca/download/", {
+      .post("http://127.0.0.1:8000/webKiosk/download/", {
         market_name: "S",
       })
       .then((response) => {

@@ -6,7 +6,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
   const [optionList, setoptionList] = useState([]);
   const LoadOption = async () => {
     const response = await axios
-      .post("http://127.0.0.1:8000/webKiosk/client/opme/read/", {
+      .post("http://127.0.0.1:8000/webKiosk/opme/", {
         market_name: "S",
         menu_name: MenuInfo.menu_name,
       })
@@ -45,7 +45,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
       alert(UpdataMenu.data);
     } else {
       IsModalOpen(false);
-      // window.location.reload();
+      window.location.reload();
     }
   };
   useEffect(() => {

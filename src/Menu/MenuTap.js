@@ -7,10 +7,11 @@ import axios from "axios";
 import MenuList from "./MenuList";
 function MenuTap() {
   const [Alldata, setAlldata] = useState([]);
+  const [key, setKey] = useState("0");
 
   const allMenu = async () => {
     await axios
-      .post("http://127.0.0.1:8000/webKiosk/client/meca/download/", {
+      .post("http://127.0.0.1:8000/webKiosk/download/", {
         market_name: "S",
       })
       .then((response) => {
@@ -22,7 +23,8 @@ function MenuTap() {
   }, []);
 
   return (
-    <Tabs defaultActiveKey="0" id="uncontrolled-tab-example" className="mb-3">
+    <Tabs defaultActiveKey="0" id="uncontrolled-tab-example" className="mb-3"   activeKey={key}
+    onSelect={(k) => setKey(k)}>
       {Object.keys(Alldata).map((item) => {
         return (
           <Tab
@@ -30,7 +32,7 @@ function MenuTap() {
             eventKey={item}
             title={Alldata[item]["category_name"]}
           >
-            <MenuList categoryName={Alldata[item]["category_name"]} />
+            <MenuList categoryName={Alldata[item]["category_name"]} SelectTap={Alldata[key]["category_name"]} />
           </Tab>
         );
       })}
