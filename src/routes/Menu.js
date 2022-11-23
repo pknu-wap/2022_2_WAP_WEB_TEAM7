@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import "./Menu.css";
-import Footer from "../layout/footer/Footer";
 import Modal from 'react-modal';
 import Detail from "./Detail";
 import Order from "./Order";
 import {customStyles} from "../Modal_design";
 import axios from 'axios'
 import Items from "./Items";
+import Ordertable from "../components/OrderTable";
 
 
 function Menu({foodname, onCreate}) {
@@ -42,7 +42,49 @@ function Menu({foodname, onCreate}) {
       orderModalIsOpen(true);
       }
   
+  function Footer(order) {
+
+    const Order=order["order"];
+    
+    //전체 취소 버튼 클릭시 주문 목록 초기화
+    function clearAll(){
+        order.showorder([])
+    }
   
+    //빼기 버튼 클릭시 주문 목록에서 해당 메뉴 삭제
+    function editOrder(id){
+        const ID=Number(id)
+        Order.splice(ID,1)
+        order.showorder([...Order])
+    }
+    //최종 가격과 최종 메뉴 갯수 계산
+    let total_price = 0;
+  
+    const total_menu = Object.keys(order["order"]).length;
+    Object.keys(order["order"]).map((key) => {
+        total_price += order["order"][key].total_price;
+    });
+  
+    // 주문 목록에 담을 State 배열을 Order변수에 저장
+    //
+    return (
+        <div className="footer_container">
+            <div className="order_list">
+                <Ordertable order={Order} editOrder={editOrder}></Ordertable>
+            </div>
+            <div className="order">
+                <div className="grid">
+                    <span>주문 건수</span>
+                    <span>{total_menu}</span>
+                    <span>주문 금액</span>
+                    <span>{total_price}</span>
+                </div>
+                <button id="cancel_button" onClick={clearAll}>전체 취소</button>
+                <button id="order_button" onClick={orderClick}>주문</button>  
+            </div>
+        </div>
+    )
+  }
 
 // Order_list를 console로 보여주는 함수, 주문 목록은 ordered_list에 저장되어 있음
 function showorder(order_list){ 
@@ -102,6 +144,7 @@ useEffect(() => {
   console.log("주문목록",ordered_list)
 }, [ordered_list]);
 
+
     // back에서 값을 불러오는 것을 대기하는 것
     if (loading || category[0] === undefined){
       return <div>로딩중...</div>;
@@ -122,10 +165,6 @@ useEffect(() => {
             <Order setorder={orderModalIsOpen} final_order={ordered_list} ></Order>
             </Modal>
           </div>
-            <div className="order_button">
-              <div className="design"/><div className="design"/>
-              <button id="order_button" onClick={orderClick}>주문</button>  
-            </div>
             <Footer order={ordered_list} showorder={set_ordered_list}/>
         </div>
     )

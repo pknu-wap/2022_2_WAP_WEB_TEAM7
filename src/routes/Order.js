@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import "./Order.css";
-import Ordertable from "../layout/footer/OrderTable";
-import Footer from "../layout/footer/Footer";
 import Modal from 'react-modal';
 import Check from './Check';
 import axios from 'axios'
@@ -12,12 +10,10 @@ function Order({setorder, final_order}){
     
     // 확인창 추가 모달 창 열고 닫기 관연 변수 State
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
-    
 
-    // 주문 목록, 시간, 가격 DB저장
     async function call_api(){
         const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/order/create/",{
-            menu_list: {final_order},
+            menu_list: `${final_order}`,
             market_name: 'S',
             all_price : 1000,
             create_date : 2022-11-21
@@ -28,15 +24,14 @@ function Order({setorder, final_order}){
 
     
 
-    // 사장님 결제 모달창 열기 final_order에 주문 목록이 담겨 있음        
+            
      function check(e) {
          checkModalIsOpen(true);
      }
 
     return (
         <div className="finish_order_list">
-            <hi>주문 목록</hi>
-
+            <h1>주문 목록</h1>
             <div className="orderTableContainer">
             <table className="orderTable">
                 <thead>
