@@ -19,9 +19,8 @@ const MenuList = ({ categoryName, SelectTap }) => {
       });
     return;
   };
-// 메뉴 생성 모달 창을 열고 닫는 변수
-const [IsplusOpen, setIsplusOpen] = useState(false);
-
+  // 메뉴 생성 모달 창을 열고 닫는 변수
+  const [IsplusOpen, setIsplusOpen] = useState(false);
 
   //모달 창을 열고 닫는 변수
   const [IsModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +30,7 @@ const [IsplusOpen, setIsplusOpen] = useState(false);
   useEffect(() => {
     allMenu();
   }, []);
+
   //Alldata 데이터가 없을때 처리
   if (Alldata === null || Alldata === undefined) {
     return <h2>메뉴가 없습니다.</h2>;
@@ -75,20 +75,23 @@ const [IsplusOpen, setIsplusOpen] = useState(false);
                   </button>
                 </td>
                 <Modal show={IsModalOpen}>
-                  <Edit
-                    MenuInfo={selectMenu}
-                    IsModalOpen={setIsModalOpen}
-                  />
+                  <Edit MenuInfo={selectMenu} IsModalOpen={setIsModalOpen} />
                 </Modal>
                 <Modal show={IsplusOpen}>
-                  <CreateMenu SelectTap={SelectTap}IsOpen={setIsplusOpen} />
+                  <CreateMenu
+                    SelectTap={SelectTap}
+                    IsOpen={setIsplusOpen}
+                    MenuList={Alldata}
+                  />
                 </Modal>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <button className="MenuPlus" onClick={()=>setIsplusOpen(true)}>메뉴 추가하기</button>
+      <button className="MenuPlus" onClick={() => setIsplusOpen(true)}>
+        메뉴 추가하기
+      </button>
     </div>
   );
 };

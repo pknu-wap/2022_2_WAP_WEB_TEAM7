@@ -14,16 +14,16 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         setoptionList(response.data);
       });
   };
+  //수정 버튼 클릭시 실행
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("EVENT", event);
     let selectedElement = document.querySelector("#status");
     let NewName = event.target[0].value;
     const IsSoldOut = event.target[2].value;
     console.log(selectedElement.value === "false");
     const newPrice = Number(event.target[1].value);
     console.log(IsSoldOut, NewName, newPrice);
-    //제품 이름이 같은 경우에 대한 더미 값을 넣어서 다른 값을 바꿀 수 있도록 함
+    //제품 이름이 같은 경우에 대한 더미 값을 넣어서  이름이 같더라도 다른 값을 바꿀 수 있도록 함
     const checkName =
       NewName === MenuInfo.menu_name
         ? `"Dummy" : "null",`
@@ -40,6 +40,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
           "is_forbidden" : ${IsSoldOut}
         }`,
       });
+
     UpdataMenu();
     if (UpdataMenu.data === "이미 동일한 이름이 존재합니다.") {
       alert(UpdataMenu.data);
