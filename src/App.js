@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
+import Categories from './layout/categories/Categories';
+import CurrentOrder from './routes/CurrentOrder';
+import PastOrder from './routes/PastOrder';
+import MenuModify from './routes/MenuModify';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Categories/>
+        <Routes>
+          <Route path='/' element={<Navigate to='/current_order'/>}/>
+          <Route path='/current_order' element={<CurrentOrder/>}/>
+          <Route path='/past_order' element={<PastOrder/>}/>
+          <Route path='/menu_modify' element={<MenuModify/>}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

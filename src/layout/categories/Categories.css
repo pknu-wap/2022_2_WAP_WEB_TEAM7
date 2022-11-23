@@ -1,0 +1,39 @@
+.category_container {
+    display: grid;
+    grid-template-columns: 15rem;
+    text-align: center;
+    font-size: 1.2rem;
+    float: left;
+}
+
+.category_container ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories li {
+    margin: 0;
+    padding: 10%;
+}
+
+.categories {
+    border-right: 1px solid #132D48;
+    margin: 0;
+    padding: 10%;
+}
+
+.selected {
+    background-color: #132D48;
+    margin: 0;
+    padding: 10%;
+}
+
+.selected a {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
