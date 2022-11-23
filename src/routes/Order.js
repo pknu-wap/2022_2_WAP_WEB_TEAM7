@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Order.css";
+import Ordertable from "../components/OrderTable";
+import Menu from "./Menu";
 import Modal from 'react-modal';
 import Check from './Check';
 import axios from 'axios'
@@ -31,7 +33,7 @@ function Order({setorder, final_order}){
 
     return (
         <div className="finish_order_list">
-            <h1>주문 목록</h1>
+            <hi>주문 목록</hi>
             <div className="orderTableContainer">
             <table className="orderTable">
                 <thead>
