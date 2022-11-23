@@ -1,4 +1,5 @@
 import React from "react";
+import Home from "./Menu/MenuEdit/Home";
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,10 +23,6 @@ function App() {
       </header>
     </BrowserRouter>
   );
-}
-
-function Home() {
-  return <h1>Home</h1>;
 }
 
 function SignIn() {
