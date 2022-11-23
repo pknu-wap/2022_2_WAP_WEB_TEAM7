@@ -78,3 +78,20 @@ table td{
   top: 350%;
   transform: translate(-50%, -50%);
 }
+
+.finalOrder_grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: 3px solid gray;
+  border-radius: 7px;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 650%;
+  transform: translate(1%, -50%);
+
+}
+
+.finalOrder_grid span {
+  border: 1px solid gray;
+  border-radius: 3px;
+}

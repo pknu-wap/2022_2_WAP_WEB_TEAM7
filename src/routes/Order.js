@@ -24,7 +24,11 @@ function Order({setorder, final_order}){
         console.log(data)
     }
 
-    
+    let total_price = 0;
+    const total_menu = Object.keys(final_order).length;
+    Object.keys(final_order).map((key) => {
+        total_price += final_order[key].total_price;
+    });
 
             
      function check(e) {
@@ -57,7 +61,13 @@ function Order({setorder, final_order}){
                          })}
                 </tbody>
             </table>
-            </div>      
+            </div> 
+            <div className="finalOrder_grid">
+              <span>주문 건수</span>
+              <span>{total_menu}</span>
+              <span>주문 금액</span>
+              <span>{total_price}</span>
+            </div>     
             <div id="back">
             <button style={{color:"white"}} onClick={()=> setorder(false)}>취소</button>
             </div>
