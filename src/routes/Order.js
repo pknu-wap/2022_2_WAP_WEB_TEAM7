@@ -28,7 +28,8 @@ function Order({setorder, final_order}){
 
             
      function check(e) {
-         checkModalIsOpen(true);
+        call_api(true);
+        checkModalIsOpen(true);     
      }
 
     return (
