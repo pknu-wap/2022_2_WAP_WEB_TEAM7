@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Edit from "./MenuEdit/Edit";
 import CreateMenu from "./CreateMenu";
+import { DelMenu } from "./DeleteMenu.js";
 
 const MenuList = ({ categoryName, SelectTap }) => {
   //메뉴 데이터를 담을 변수
@@ -73,22 +74,29 @@ const MenuList = ({ categoryName, SelectTap }) => {
                   >
                     편집
                   </button>
+                  <button
+                    onClick={() =>
+                      DelMenu(Alldata, Alldata[menuindex].menu_name, SelectTap)
+                    }
+                  >
+                    삭제
+                  </button>
                 </td>
-                <Modal show={IsModalOpen}>
-                  <Edit MenuInfo={selectMenu} IsModalOpen={setIsModalOpen} />
-                </Modal>
-                <Modal show={IsplusOpen}>
-                  <CreateMenu
-                    SelectTap={SelectTap}
-                    IsOpen={setIsplusOpen}
-                    MenuList={Alldata}
-                  />
-                </Modal>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Modal show={IsModalOpen}>
+        <Edit MenuInfo={selectMenu} IsModalOpen={setIsModalOpen} />
+      </Modal>
+      <Modal show={IsplusOpen}>
+        <CreateMenu
+          SelectTap={SelectTap}
+          IsOpen={setIsplusOpen}
+          MenuList={Alldata}
+        />
+      </Modal>
       <button className="MenuPlus" onClick={() => setIsplusOpen(true)}>
         메뉴 추가하기
       </button>

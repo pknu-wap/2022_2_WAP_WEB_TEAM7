@@ -18,19 +18,19 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
       NewMenuList.push(`"${menu.menu_name}"`);
     });
     NewMenuList.push(`"${NewName}"`);
-
-    const MakeMenu = async () =>
+    console.log("NewMenuList", NewMenuList);
+    const MakeMenu = async () => {
       await axios.post("http://127.0.0.1:8000/webKiosk/client/menu/create/", {
         market_name: "S",
         menu_name: `${NewName}`,
         price: `${newPrice}`,
       });
-    const SetMeca = async () => {
-      console.log("new", `${NewMenuList}`);
+      console.log("new", `[${NewMenuList}]`);
+      console.log("SelectTap", `${SelectTap}`);
+
       await axios
         .post("http://127.0.0.1:8000/webKiosk/client/meca/management/", {
           market_name: "S",
-          menu_name: `${NewName}`,
           category_name: `${SelectTap}`,
           menu_set: `[${NewMenuList}]`,
         })
@@ -41,7 +41,6 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
 
     MakeMenu();
 
-    SetMeca();
     if (MakeMenu.data === "이미 동일한 이름이 존재합니다.") {
       alert(MakeMenu.data);
     } else {

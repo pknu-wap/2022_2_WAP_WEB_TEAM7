@@ -5,6 +5,8 @@ import AllMenuList from "./AllMenuList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MenuList from "./MenuList";
+import CategoryList from "./CategoryList";
+import OptionList from "./Option/OptionList";
 function MenuTap() {
   const [Alldata, setAlldata] = useState([]);
   const [key, setKey] = useState("0");
@@ -21,10 +23,18 @@ function MenuTap() {
   useEffect(() => {
     allMenu();
   }, []);
-
+  console.log("alldata", Alldata);
+  if (Alldata === null || Alldata === undefined) {
+    return <h2>메뉴가 없습니다.</h2>;
+  }
   return (
-    <Tabs defaultActiveKey="0" id="uncontrolled-tab-example" className="mb-3"   activeKey={key}
-    onSelect={(k) => setKey(k)}>
+    <Tabs
+      defaultActiveKey="0"
+      id="uncontrolled-tab-example"
+      className="mb-3"
+      activeKey={key}
+      onSelect={(k) => setKey(k)}
+    >
       {Object.keys(Alldata).map((item) => {
         return (
           <Tab
@@ -32,12 +42,21 @@ function MenuTap() {
             eventKey={item}
             title={Alldata[item]["category_name"]}
           >
-            <MenuList categoryName={Alldata[item]["category_name"]} SelectTap={Alldata[key]["category_name"]} />
+            <MenuList
+              categoryName={Alldata[item]["category_name"]}
+              SelectTap={Alldata[item]["category_name"]}
+            />
           </Tab>
         );
       })}
-      <Tab eventKey={"MenuManage"} title={"메뉴관리"}>
+      <Tab title={"전체메뉴"} eventKey={"test"} disabled>
         <AllMenuList />
+      </Tab>
+      <Tab eventKey={"EditCategory"} title={"카테고리 설정"}>
+        <CategoryList />
+      </Tab>
+      <Tab eventKey={"EditOption"} title={"옵션 설정"}>
+        <OptionList />
       </Tab>
     </Tabs>
   );
