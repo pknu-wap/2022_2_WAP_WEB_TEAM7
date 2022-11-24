@@ -37,7 +37,7 @@ useEffect(()=>{
     let info= { "menu_name" : selectedMenu.menu_name,  "total_price" : total_price, "order_count" : order_count}
     const selectedOptions=document.querySelectorAll(".OptionChoices:checked")
     Object.values(selectedOptions).map((option)=>{
-      info[option.id]=Number(option.value)
+      info[option.name]=option.id
     })  
     //옵션 선택을 안한 경우 경고창 출력 및 그대로 함수 종료
     if(selectedOptions.length!=option.length){
