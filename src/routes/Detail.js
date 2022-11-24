@@ -95,9 +95,10 @@ useEffect(()=>{
             {Object.keys(optionList).map((key)=>{
               const Obj={}
               Obj[key]=optionList[key]
+              console.log(optionList,"sts ")
               return(
                 <label key={key}>
-                  <input className="OptionChoices" name={option.option_name} id={key} value={optionList[key]}  onChange={()=>ChangeOption(key)} type="radio"/>{key} : {optionList[key]}
+                  <input className="OptionChoices" name={option.option_name} id={key} value={optionList[key]}  onChange={()=>ChangeOption(key)} type="radio"/>{optionList[key]} : {optionList[key].price}
                 </label>
               )
             })

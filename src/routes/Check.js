@@ -1,7 +1,7 @@
 import React from "react";
 import "./Check.css";
 
-function Check(){
+function Check(prop){
 
     function close(e) {
         window.location.href = "/"
@@ -13,6 +13,7 @@ function Check(){
             <h1>주문이 완료됩니다.</h1>
             <div className="orderNumber">
             <h1>주문번호</h1>
+            <p>{prop.order_num}</p>
             </div>
             <div id="close_button">
                 <button style={{color:"white"}} onClick={close}>닫기</button>

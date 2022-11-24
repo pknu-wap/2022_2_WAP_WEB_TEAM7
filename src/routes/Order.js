@@ -12,18 +12,23 @@ function Order({setorder, final_order}){
     
     // 확인창 추가 모달 창 열고 닫기 관연 변수 State
     const [check_moderIsOpen, checkModalIsOpen] = useState(false);
+    const [result , setResult] = useState({})
 
     async function call_api(){
-        console.log(final_order)
-        console.log(total_price)
+        console.log(final_order);
+        console.log(total_price);
+       
         try{
-            const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/order/create/",{
-                menu_list:  `${final_order}`,
-                market_name: 'S',
+            const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/order/create/",
+            {
+                menu_list: JSON.stringify(final_order),
+                market_name: "S",
                 all_price : total_price,
                 create_date : '2022-11-24',
                 take_out : false
             })
+
+            setResult(data.data)
             console.log(data.data.menu_list)
         }catch(e){
             console.log(e)
@@ -81,7 +86,7 @@ function Order({setorder, final_order}){
                 <button style={{color:"white"}} onClick={check}>확인</button>
             </div>
             <Modal isOpen={check_moderIsOpen} onRequestClose={()=>checkModalIsOpen(true)}>
-            <Check setcheck={checkModalIsOpen}></Check>
+            <Check setcheck={checkModalIsOpen} order_num={result.order_num}></Check>
             </Modal>
         </div>
     );
