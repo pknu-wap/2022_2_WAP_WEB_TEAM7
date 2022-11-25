@@ -8,6 +8,10 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
   //옵션 데이터 담을 state 변수
   const [optionList, setoptionList] = useState([]);
   const [OldOptionList, setOldOptionList] = useState([]);
+  //  로딩중 스테이트 변수
+  const [isLoading, setisLoading] = useState(true);
+  // optionList에서 옵션 이름만 포함해서 담을 배열
+  let optionNameList = [];
   // 옵션 불러오는 함수
   const LoadAllOption = async () => {
     const response = await axios
@@ -36,7 +40,6 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
     LoadAllOption();
     LoadOldOption();
   }, []);
-  console.log("optionList", optionList);
 
   //수정 버튼 클릭시 실행
   const handleSubmit = async (event) => {
@@ -66,7 +69,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
           "is_forbidden" : ${IsSoldOut}
         }`,
       });
-    // 메뉴의 옵션 수정을 위한 함수
+    // 메뉴에 어떤 옵션이 들어가는 지 수정을 위한 함수
     const UpdateOption = async () => {
       const chkList = document.querySelectorAll("input[prop=option]:checked");
       const chkListArr = [];
@@ -109,6 +112,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
             name="menu_name"
             id="NewName"
             defaultValue={MenuInfo.menu_name}
+            required
           />
         </div>
         <div>
@@ -118,6 +122,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
             name="menu_price"
             id="NewPrice"
             defaultValue={MenuInfo.price}
+            required
           />
         </div>
         <div>
@@ -138,13 +143,31 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         <div>
           <label>옵션을 선택하세요</label>
           <br></br>
+          {Object.values(OldOptionList).map((olditem) => {
+            optionNameList.push(olditem.option_name);
+          })}
           {Object.values(optionList).map((item) => {
-            console.log("item", item);
-            Object.values(OldOptionList).map((oldItem) => {});
+            console.log("item", item.option_name);
+            console.log("OptionNameList", optionNameList);
+
+            let ischk;
+            if (optionNameList.includes(item.option_name)) {
+              ischk = "checked";
+            } else {
+              ischk = null;
+            }
+            console.log(ischk);
             return (
               <span>
-                <input type="checkbox" prop="option" name={item.option_name} />
-                <label>{item.option_name}</label>
+                <label>
+                  <input
+                    type="checkbox"
+                    prop="option"
+                    name={item.option_name}
+                    defaultChecked={ischk}
+                  />
+                  {item.option_name}
+                </label>
               </span>
             );
           })}

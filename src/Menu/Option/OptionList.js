@@ -50,7 +50,9 @@ const OptionList = () => {
                 <tr key={index} id={index}>
                   <th>{index++}</th>
                   <td>{option.option_name}</td>
-                  <td>{option.option_list}</td>
+                  <td>
+                    {`${option.option_list}`.replace("{", "").replace("}", "")}
+                  </td>
                   <td>
                     <button
                       onClick={() => {

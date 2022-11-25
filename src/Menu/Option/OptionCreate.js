@@ -3,21 +3,39 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
+import React, { useState } from "react";
 
 const OptionCreate = ({ show }) => {
-  let index = 0;
+  //옵션 종류 추가하는 기능
+  const [inputList, setInputList] = useState([{ Name: "", Price: "" }]);
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([...inputList, { Name: "", Price: "" }]);
+  };
+
   function handlesubmit(event) {
-    console.log("event", event.target.length);
+    console.log("event", event);
     event.preventDefault();
     const option_name = event.target[0].value;
     const option_list = {};
-    for (let i = 1; i < event.target.length - 2; i++) {
-      if (i % 2 == 0) {
-        option_list[event.target[i - 1].value] = Number(event.target[i].value);
-      }
-    }
-
-    console.log(JSON.stringify(option_list));
+    inputList.map((item) => {
+      option_list[item.Name] = Number(item.Price);
+    });
 
     const data = async () =>
       await axios
@@ -36,51 +54,63 @@ const OptionCreate = ({ show }) => {
   // axios
   return (
     <Form onSubmit={(e) => handlesubmit(e)}>
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label>옵션 이름</Form.Label>
-          <Form.Control type="text" placeholder="Enter email" />
-        </Form.Group>
-      </Row>
-
-      <Form.Group className="mb-3" controlId="formGridAddress1">
-        <Row>
-          <Col>
-            <Form.Label>항목1 이름</Form.Label>
-            <Form.Control placeholder="이름을 입력해주세요" />
-          </Col>
-          <Col>
-            <Form.Label>항목1 가격</Form.Label>
-            <Form.Control type="Number" placeholder="Last name" min="0" />
-          </Col>
+      <div className="App">
+        <h3>옵션 세부 항목 설정</h3>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formGridEmail">
+            <Form.Label>옵션 이름</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="옵션 이름을 입력해주세요"
+              required
+            />
+          </Form.Group>
         </Row>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formGridAddress1">
-        <Row>
-          <Col>
-            <Form.Label>항목1 이름</Form.Label>
-            <Form.Control placeholder="이름을 입력해주세요" />
-          </Col>
-          <Col>
-            <Form.Label>항목1 가격</Form.Label>
-            <Form.Control type="Number" placeholder="Last name" min="0" />
-          </Col>
-        </Row>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formGridAddress1">
-        <Row>
-          <Col>
-            <Form.Label>항목3 이름</Form.Label>
-            <Form.Control placeholder="이름을 입력해주세요" />
-          </Col>
-          <Col>
-            <Form.Label>항목3 가격</Form.Label>
-            <Form.Control type="Number" placeholder="Last name" min="0" />
-          </Col>
-        </Row>
-      </Form.Group>
+        {inputList.map((x, i) => {
+          return (
+            <div className="box">
+              <Form.Group className="mb-3" controlId="formGridAddress1">
+                <Row>
+                  <Col>
+                    <Form.Label>{i + 1}번 항목 이름</Form.Label>
+                    <Form.Control
+                      required
+                      type="input"
+                      placeholder="이름을 입력해주세요"
+                      name="Name"
+                      value={x.Name}
+                      onChange={(e) => handleInputChange(e, i)}
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label>{i + 1}번 항목 가격</Form.Label>
+                    <Form.Control
+                      type="Number"
+                      placeholder="가격을 입력하세요"
+                      name="Price"
+                      min="0"
+                      value={x.Price}
+                      onChange={(e) => handleInputChange(e, i)}
+                      required
+                    />
+                  </Col>
+                </Row>
+              </Form.Group>
+              <div className="btn-box">
+                {inputList.length !== 1 && (
+                  <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                    삭제
+                  </button>
+                )}
+                {inputList.length - 1 === i && (
+                  <button onClick={handleAddClick}>항목추가</button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+      </div>
       <Button variant="primary" type="submit">
         생성하기
       </Button>
