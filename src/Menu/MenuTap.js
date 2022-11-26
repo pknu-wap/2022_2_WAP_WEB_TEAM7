@@ -7,9 +7,21 @@ import axios from "axios";
 import MenuList from "./MenuList";
 import CategoryList from "./CategoryList";
 import OptionList from "./Option/OptionList";
+//선택한 tap번호 세션통해 불러오기
+function Oldtap(tapId) {
+  if (sessionStorage) {
+    // Store data
+    sessionStorage.setItem("selectTap", tapId);
+  }
+}
+
 function MenuTap() {
   const [Alldata, setAlldata] = useState([]);
-  const [key, setKey] = useState("0");
+  const [key, setKey] = useState(
+    sessionStorage.getItem("selectTap") === null
+      ? "0"
+      : sessionStorage.getItem("selectTap")
+  );
 
   const allMenu = async () => {
     await axios
@@ -33,7 +45,10 @@ function MenuTap() {
       id="uncontrolled-tab-example"
       className="mb-3"
       activeKey={key}
-      onSelect={(k) => setKey(k)}
+      onSelect={(k) => {
+        setKey(k);
+        Oldtap(k);
+      }}
     >
       {Object.keys(Alldata).map((item) => {
         return (
@@ -49,9 +64,9 @@ function MenuTap() {
           </Tab>
         );
       })}
-      <Tab title={"전체메뉴"} eventKey={"test"} disabled>
+      {/* <Tab title={"전체메뉴"} eventKey={"test"} hide>
         <AllMenuList />
-      </Tab>
+      </Tab> */}
       <Tab eventKey={"EditCategory"} title={"카테고리 설정"}>
         <CategoryList />
       </Tab>

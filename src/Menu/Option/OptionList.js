@@ -21,6 +21,7 @@ const OptionList = () => {
         market_name: "S",
       })
       .then((response) => {
+        console.log("test", response.data);
         setOption(response.data);
       });
   // 처음 렌더링 될 때 옵션 불러오기
@@ -45,14 +46,13 @@ const OptionList = () => {
         </thead>
         <tbody>
           {Object.values(options).map((option) => {
+            const detailOption = option.option_list.replaceAll("'", '"');
             return (
               <>
                 <tr key={index} id={index}>
                   <th>{index++}</th>
                   <td>{option.option_name}</td>
-                  <td>
-                    {`${option.option_list}`.replace("{", "").replace("}", "")}
-                  </td>
+                  <td>{`${detailOption}`.replace("{", "").replace("}", "")}</td>
                   <td>
                     <button
                       onClick={() => {
@@ -66,7 +66,7 @@ const OptionList = () => {
                   <td>
                     <button
                       onClick={() =>
-                        OptionDel(option.option_name, option.option_list)
+                        OptionDel(option.option_name, detailOption)
                       }
                     >
                       삭제

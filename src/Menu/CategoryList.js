@@ -6,6 +6,7 @@ import { ListGroup } from "react-bootstrap";
 import { DelCategory } from "./DeleteCategory";
 
 const CategoryList = () => {
+  const [update, setupdate] = useState([]);
   //모달 창 상태 변수
   const [show, setShow] = useState(false);
   //카테고리 데이터를 담을 변수
@@ -19,8 +20,11 @@ const CategoryList = () => {
         category_name: event.target[0].value,
       })
       .then((response) => {
-        if (response.data.includes("이미")) {
+        if (`${response.data}`.includes("이미")) {
           alert(response.data);
+        } else {
+          setShow(false);
+          setupdate([...update]);
         }
       });
   }
