@@ -1,39 +1,30 @@
 import React from "react";
-import Home from "./Menu/MenuEdit/Home";
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
-  BrowserRouter,
+  Routes,
+  Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Menu from "./Menu/Menu.js";
-import Header from "./Header";
+import Categories from "./layout/categories/Categories";
+import CurrentOrder from "./routes/CurrentOrder";
+import PastOrder from "./routes/PastOrder";
+import Menu from "./Menu/Menu";
+
 function App() {
   return (
-    <BrowserRouter>
-      <header>
-        <Header />
+    <Router>
+      <div>
+        <Categories />
         <Routes>
-          <Route path={"/menu"} element={<Menu />} />
-          <Route path={"/album"} element={<Album />} />
-          <Route path={"/pricing"} element={<Pricing />} />
-          <Route path={"/"} element={<Home />} />
+          <Route path="/" element={<Navigate to="/current_order" />} />
+          <Route path="/current_order" element={<CurrentOrder />} />
+          <Route path="/past_order" element={<PastOrder />} />
+          <Route path="/menu_modify" element={<Menu />} />
         </Routes>
-      </header>
-    </BrowserRouter>
+      </div>
+    </Router>
   );
 }
 
-function SignIn() {
-  return <h1>Sign In</h1>;
-}
-
-function Album() {
-  return <h1>Album</h1>;
-}
-
-function Pricing() {
-  return <h1>Pricing</h1>;
-}
 export default App;

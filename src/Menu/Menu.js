@@ -40,9 +40,9 @@ function Menu() {
   }, []);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <MenuTap />
-    </>
+    </div>
   );
 }
 export default Menu;
