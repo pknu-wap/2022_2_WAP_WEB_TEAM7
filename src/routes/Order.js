@@ -17,6 +17,7 @@ function Order({setorder, final_order}){
     async function call_api(){
         console.log(final_order);
         console.log(total_price);
+        console.log(date);
        
         try{
             const data= await axios.post("http://127.0.0.1:8000/webKiosk/client/order/create/",
@@ -24,7 +25,7 @@ function Order({setorder, final_order}){
                 menu_list: JSON.stringify(final_order),
                 market_name: "S",
                 all_price : total_price,
-                create_date : '2022-11-24',
+                create_date : date,
                 take_out : false
             })
 
@@ -34,7 +35,19 @@ function Order({setorder, final_order}){
             console.log(e)
         }
     }
+    // 현재 연도/월/일T시간/분/초 구하기
+    let today = new Date()
 
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate();  // 날짜
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes();  // 분
+    let seconds = today.getSeconds();  // 초
+
+    date = year + '-' + month + '-' + date + 'T' + hours + ':' + minutes + ':' + seconds
+    
+    // 주문 총액 구하기
     let total_price = 0;
     const total_menu = Object.keys(final_order).length;
     Object.keys(final_order).map((key) => {

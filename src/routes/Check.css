@@ -16,7 +16,15 @@
     font-weight: 800;
   }
   
-
+.orderNum{
+    position: absolute;
+    left: 50%;
+    top: 300%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 800;
+  }
+  
 #close_button button {
   width: 8rem;
   height: 4rem;
