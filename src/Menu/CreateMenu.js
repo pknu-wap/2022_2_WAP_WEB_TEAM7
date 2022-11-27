@@ -1,10 +1,18 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
   console.log("SelectTap", SelectTap);
+  const fileInputRef = useRef(null);
+  //이미지를 저장할 usestate변수
+  const [MenuImage, setMenuImage] = useState(null);
+  const onImgChange = (e) => {
+    console.log("evnet", e);
+    const img = e.target.files[0];
+    setMenuImage(img);
+    console.log("img" + img);
+  };
   //카테고리 별 기존 메뉴 배열 생성
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("EVENT", event);
@@ -22,13 +30,22 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
     });
     console.log("NewMenuList", NewMenuList);
     const MakeMenu = async () => {
+      const formData = new FormData();
+      formData.append("market_name", "S");
+      formData.append("menu_name", `${NewName}`);
+      formData.append("price", newPrice);
+      //메뉴 이미지가 있는 경우에만 추가
+      if (MenuImage !== null) {
+        formData.append("menu_image", MenuImage);
+      }
+      formData.append("is_forbidden", IsSoldOut);
+      formData.append("enctype", "multipart/form-data");
       await axios
-        .post("http://127.0.0.1:8000/webKiosk/client/menu/create/", {
-          market_name: "S",
-          menu_name: `${NewName}`,
-          price: `${newPrice}`,
+        .post("http://127.0.0.1:8000/webKiosk/client/menu/create/", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
+          console.log("res", res.data);
           if (`${res.data}`.includes("이미")) {
             IsNameDuplicated = true;
             alert(res.data);
@@ -50,7 +67,7 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
             console.log("response", response);
           });
         IsOpen(false);
-        window.location.reload();
+        //window.location.reload();
       }
     };
     const res = MakeMenu();
@@ -80,7 +97,12 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
         </div>
         <div>
           <label>사진</label>
-          <input type="text" value="" />
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={(e) => onImgChange(e)}
+          />
         </div>
 
         <div>

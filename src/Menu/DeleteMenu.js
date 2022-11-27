@@ -22,5 +22,13 @@ export async function DelMenu(OldMenuList, delMenu, SelectTap) {
     .then((response) => {
       console.log("response", response);
     });
-  window.location.reload();
+  await axios
+    .post("http://127.0.0.1:8000/webKiosk/client/menu/delete/", {
+      market_name: "S",
+      menu_name: `${delMenu}`,
+    })
+    .then((response) => {
+      console.log("response", response);
+    });
+  // window.location.reload();
 }

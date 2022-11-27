@@ -57,7 +57,6 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         ? `"Dummy" : "null",`
         : `"menu_name" : "${NewName}",`;
 
-    console.log("checkName", checkName);
     // 메뉴의 가격, 이름 수정하는 경우
     const UpdataMenu = async () =>
       await axios.post("http://127.0.0.1:8000/webKiosk/client/menu/update/", {
