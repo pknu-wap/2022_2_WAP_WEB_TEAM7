@@ -1,22 +1,25 @@
 /* make table style for table in OrderTable */
 table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #ddd;
-    font-size: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 20px;
 }
-table td{
-    text-align: center;
+table td {
+  text-align: center;
 }
-.table .col{
-    background-color: aqua;
-    position: sticky;
-    top: 0px;
-    margin: 0 0 0 10;
+table tr {
+  border-bottom: 1px solid #ddd;
 }
-.tableContainer{
-    border-radius: 20px;
-    height: 150px;
-    padding: 0 10px 10px 10px;
-    overflow: auto;
+.table .col {
+  background-color: aqua;
+  position: sticky;
+  top: 0px;
+  margin: 0 0 0 10;
+}
+.tableContainer {
+  border-radius: 20px;
+  height: 150px;
+  padding: 0 10px 10px 10px;
+  overflow: auto;
 }
