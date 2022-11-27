@@ -52,13 +52,10 @@ class CRUD:
                     else:check=True
                     dic=Dictionary(**serializer.data)
                     if check:
-                        serializer=ImageSerializer(data=request.FILES)
-                        if not serializer.is_valid(): 
-                            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-                        dic["menu_image"]=serializer.data["menu_image"]
+                        dic["menu_image"]=request.FILES["menu_image"]
                     if IsSameName(account,model,**dic)==False:
                         Save(model,account,**dic)
-                        return Response(dic)
+                        return Response(serializer.data)
                     return HttpResponse("이미 동일한 이름이 존재합니다")    
                 else: 
                     if IsSameName(account,model,**serializer.data)==False:
