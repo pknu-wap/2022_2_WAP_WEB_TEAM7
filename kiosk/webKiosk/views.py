@@ -7,7 +7,6 @@ from rest_framework import status
 from django.http.response import HttpResponse
 import json
 import bcrypt
-
 #from rest_framework.renderers import JSONRenderer
 #from django.http import HttpRequest
 
@@ -33,6 +32,7 @@ def IsSameName(account,model,**vargs):
     try: model.objects.get(**dic)
     except: return False
     return True
+
 class CRUD:
     def Create(self,request,model):
             Serializer=get_Serializer(model)
@@ -44,6 +44,22 @@ class CRUD:
                     order_num=get_order_num()
                     Save(model,account,**serializer.data,order_num=order_num)
                     serializer=Serializer(get_obj(model,account=account,order_num=order_num,**serializer.data))
+                if model==Menu:
+                    data=serializer.data
+                    try:
+                        menu_image=request.FILES["menu_image"]
+                    except:check=False
+                    else:check=True
+                    dic=Dictionary(**serializer.data)
+                    if check:
+                        serializer=ImageSerializer(data=request.FILES)
+                        if not serializer.is_valid(): 
+                            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                        dic["menu_image"]=serializer.data["menu_image"]
+                    if IsSameName(account,model,**dic)==False:
+                        Save(model,account,**dic)
+                        return Response(dic)
+                    return HttpResponse("이미 동일한 이름이 존재합니다")    
                 else: 
                     if IsSameName(account,model,**serializer.data)==False:
                         Save(model,account,**serializer.data)
@@ -173,6 +189,7 @@ class CustomerAPI:
             return CRUD.Download(self,request,True)
     class Meca(APIView):
         def post(self,request,format=None):
+
             return CRUD.MeOpRead(self,request,Meca)
     class Opme(APIView):
         def post(self,request,format=None):
@@ -187,9 +204,9 @@ class AccountAPI:
                     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
                 if account.is_approved==False:
                     return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)
-                request.session['userid']=account.userid
                 request.session['market_name']=account.market_name
                 session_id=request.session.session_key
+                request.session.modified=True
                 dic={
                     "session_id":session_id
                 }

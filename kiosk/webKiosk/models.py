@@ -3,11 +3,13 @@ from django.db import models
 # Create your models here.
 
 class Menu(models.Model):
+    def nameFile(instance,filename):
+        return '/'.join(['images',str(instance.market_name),filename])
     account=models.ForeignKey("Account",on_delete=models.CASCADE)
     market_name=models.CharField(max_length=200)
     priority=models.IntegerField(default=1000)
     menu_name=models.CharField(max_length=200)
-    menu_image=models.ImageField(upload_to='kiosk',default="default.png")
+    menu_image=models.ImageField(upload_to=nameFile,default="default.png")
     price=models.IntegerField()
     explain=models.CharField(max_length=400,default="None")
     is_forbidden=models.BooleanField(default=False)

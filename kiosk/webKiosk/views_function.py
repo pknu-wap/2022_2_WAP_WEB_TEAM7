@@ -62,7 +62,11 @@ def check_password_safe(serializer):
     if password.islower()==True or password.isupper()==True:
         return "대문자와 소문자는 각각 1개이상 입력되어야합니다."
     return False
-     
+def Dictionary(**vargs):
+    dic={}
+    for key in vargs:
+        dic[key]=vargs[key]
+    return dic
 def json_to_dict(serializer):#GetData용
     dictionary=serializer.data["data"]
     dictionary=json.loads(dictionary)

@@ -55,4 +55,5 @@ class OrderUpdateSerializer(serializers.Serializer):
     old_order=serializers.CharField()
     new=serializers.CharField()
     market_name=serializers.CharField()
-
+class ImageSerializer(serializers.Serializer):
+    menu_image=serializers.ImageField()

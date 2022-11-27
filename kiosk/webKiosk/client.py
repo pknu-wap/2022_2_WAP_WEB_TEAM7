@@ -10,7 +10,8 @@ import bcrypt
 from .views import *
 '''
 response=AccountAPI.CheckSession.post(self,request,format=None)
-            if response.status_code!=200:return Response(status=status.HTTP_403_FORBIDDEN)
+            if response.status_code!=200 or response.status_code!=201:
+                return Response(status=status.HTTP_403_FORBIDDEN)
 '''
 class CategoryAPI:
     class Create(APIView):#카테고리 받기(사장),완성
