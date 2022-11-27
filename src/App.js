@@ -10,6 +10,7 @@ import Categories from "./layout/categories/Categories";
 import CurrentOrder from "./routes/CurrentOrder";
 import PastOrder from "./routes/PastOrder";
 import Menu from "./Menu/Menu";
+import Home from "./Menu/MenuEdit/Home.js";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Categories />
         <Routes>
           <Route path="/" element={<Navigate to="/current_order" />} />
+          <Route path="/login" element={<Home />} />
           <Route path="/current_order" element={<CurrentOrder />} />
           <Route path="/past_order" element={<PastOrder />} />
           <Route path="/menu_modify" element={<Menu />} />

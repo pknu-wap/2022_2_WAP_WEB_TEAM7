@@ -1,6 +1,7 @@
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { ListGroup } from "react-bootstrap";
+import { Check } from "./CheckValue";
 
 function EditCate(e, OldName, NewName) {
   e.preventDefault();
@@ -29,6 +30,10 @@ const EditCategory = ({ show, OldCategory }) => {
         type="text"
         placeholder="수정할 카테고리 이름"
         defaultValue={OldCategory}
+        required
+        onChange={(e) => {
+          Check(e);
+        }}
       />
       <button type="submit">확인</button>
       <button type="button" onClick={() => show(false)}>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-
+import { Check } from "../CheckValue";
 import Menu from "../Menu";
 
 function Edit({ MenuInfo, IsModalOpen, rerender }) {
@@ -75,8 +75,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
       Object.values(chkList).map((item) => {
         chkListArr.push(`"${item.name}"`);
       });
-      console.log("chkListArr", chkListArr);
-      console.log("chkList", chkList);
+
       await axios.post(
         "http://127.0.0.1:8000/webKiosk/client/opme/management/",
         {
@@ -112,6 +111,9 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
             id="NewName"
             defaultValue={MenuInfo.menu_name}
             required
+            onChange={(e) => {
+              Check(e);
+            }}
           />
         </div>
         <div>

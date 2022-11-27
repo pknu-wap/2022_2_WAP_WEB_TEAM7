@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+import { Check } from "./CheckValue.js";
 
 function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
   console.log("SelectTap", SelectTap);
   const fileInputRef = useRef(null);
   //이미지를 저장할 usestate변수
-  const [MenuImage, setMenuImage] = useState(null);
+  const [MenuImage, setMenuImage] = useState("");
   const onImgChange = (e) => {
     console.log("evnet", e);
     const img = e.target.files[0];
@@ -82,7 +83,18 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
       <form onSubmit={handleSubmit}>
         <div>
           <label>메뉴이름</label>
-          <input required type="text" name="menu_name" id="NewName" />
+          <input
+            required
+            type="text"
+            name="menu_name"
+            id="NewName"
+            onChange={(e) => {
+              console.log(Check(e));
+              if (Check(e) === true) {
+                alert("특수문자는 사용할 수 없습니다.");
+              }
+            }}
+          />
         </div>
         <div>
           <label>가격</label>

@@ -14,7 +14,8 @@ const CategoryList = () => {
   const [showEdit, setShowEdit] = useState(false);
   // 선택한 카테고리 이름 담을 변수
   const [selectCategory, setSelectCategory] = useState([]);
-
+  // 유효성 검사값 초기화용 변수
+  const [check, setCheck] = useState(null);
   //카테고리 데이터를 담을 변수
   const [category, setCategory] = useState([]);
   // 카테고리 추가 함수
@@ -82,11 +83,9 @@ const CategoryList = () => {
             size="lg"
             type="text"
             placeholder="생성할 카테고리 이름"
+            defaultValue={""}
             onChange={(e) => {
-              if (Check(e) === false) {
-                alert("한글,영어,숫자만 입력가능합니다.");
-                e.target.defaultValue = "";
-              }
+              Check(e);
             }}
           />
           <button type="submit">확인</button>

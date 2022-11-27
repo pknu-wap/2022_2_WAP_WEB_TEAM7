@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Check } from "../CheckValue";
 
 const OptionEdit = ({ optionName, optionList, show }) => {
   //옵션 종류 추가하는 기능
@@ -94,17 +95,6 @@ const OptionEdit = ({ optionName, optionList, show }) => {
       option_list += "}";
     }
 
-    // console.log(option_list);
-
-    // function handlesubmit(event) {
-    //   console.log("event", event);
-    //   event.preventDefault();
-    //   const option_name = event.target[0].value;
-    //   const option_list = {};
-    //   inputList.map((item) => {
-    //     option_list[item.Name] = Number(item.Price);
-    //   });
-
     console.log("option_list", option_list);
     const data = async () => {
       let dummy = `option_name`;
@@ -125,7 +115,7 @@ const OptionEdit = ({ optionName, optionList, show }) => {
     };
     data();
     show(false);
-    // window.location.reload();
+    window.location.reload();
   }
   const sublist = JSON.parse(`[${subOption}]`);
   if (sublist[0] === null || sublist[0] === undefined) {
@@ -133,11 +123,19 @@ const OptionEdit = ({ optionName, optionList, show }) => {
   }
   console.log(sublist[0]);
   return (
-    <Form onSubmit={(e) => handlesubmit(e)}>
+    <Form
+      onSubmit={(e) => {
+        handlesubmit(e);
+      }}
+    >
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridEmail">
           <Form.Label>옵션 이름</Form.Label>
-          <Form.Control type="text" defaultValue={optionName} />
+          <Form.Control
+            type="text"
+            defaultValue={optionName}
+            onChange={(e) => Check(e)}
+          />
         </Form.Group>
       </Row>
       {inputList.map((x, i) => {
@@ -153,7 +151,10 @@ const OptionEdit = ({ optionName, optionList, show }) => {
                     placeholder="이름을 입력해주세요"
                     name="Name"
                     value={x.Name}
-                    onChange={(e) => handleInputChange(e, i)}
+                    onChange={(e) => {
+                      Check(e);
+                      handleInputChange(e, i);
+                    }}
                   />
                 </Col>
                 <Col>
@@ -189,8 +190,7 @@ const OptionEdit = ({ optionName, optionList, show }) => {
           </div>
         );
       })}
-      <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-
+      <br></br>
       <Button variant="primary" type="submit">
         생성하기
       </Button>
