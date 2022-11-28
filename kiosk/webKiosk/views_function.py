@@ -41,7 +41,7 @@ def check_userid(serializer):
         if I.isdigit or I.isalpha or I in ["-","_"]:
             continue
         else: return errormessage
-    if userid.islower()!=False:return errormessage
+    if userid.islower()!=True:return errormessage
     return False
 def check_password_safe(serializer):
     password=serializer.data['password']
