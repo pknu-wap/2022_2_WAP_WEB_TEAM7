@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Edit from "./MenuEdit/Edit";
 import CreateMenu from "./CreateMenu";
 import { DelMenu } from "./DeleteMenu.js";
+import style from "./Menu.module.css";
 
 const MenuList = ({ categoryName, SelectTap }) => {
   //메뉴 데이터를 담을 변수
@@ -67,6 +68,7 @@ const MenuList = ({ categoryName, SelectTap }) => {
                 <td>{MenuStatus(Alldata[menuindex].is_forbidden)}</td>
                 <td>
                   <button
+                    className={style.Edit}
                     onClick={() => {
                       setIsModalOpen(true);
                       setSelectMenu(Alldata[menuindex]);
@@ -75,6 +77,7 @@ const MenuList = ({ categoryName, SelectTap }) => {
                     편집
                   </button>
                   <button
+                    className={style.Edit}
                     onClick={() =>
                       DelMenu(Alldata, Alldata[menuindex].menu_name, SelectTap)
                     }
@@ -97,7 +100,7 @@ const MenuList = ({ categoryName, SelectTap }) => {
           MenuList={Alldata}
         />
       </Modal>
-      <button className="MenuPlus" onClick={() => setIsplusOpen(true)}>
+      <button className={style.Edit} onClick={() => setIsplusOpen(true)}>
         메뉴 추가하기
       </button>
     </div>

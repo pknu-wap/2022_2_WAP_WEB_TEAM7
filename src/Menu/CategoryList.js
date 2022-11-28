@@ -6,6 +6,8 @@ import { ListGroup } from "react-bootstrap";
 import { DelCategory } from "./DeleteCategory";
 import EditCategory from "./EditCategory";
 import { Check } from "./CheckValue";
+import style from "./Menu.module.css";
+
 const CategoryList = () => {
   const [update, setupdate] = useState([]);
   //카테고리추가모달 창 상태 변수
@@ -57,12 +59,14 @@ const CategoryList = () => {
               <ListGroup.Item>
                 <span>{item.category_name} </span>
                 <button
+                  className={style.Edit}
                   value={item.category_name}
                   onClick={(e) => DelCategory(e)}
                 >
                   삭제
                 </button>
                 <button
+                  className={style.Edit}
                   onClick={() => {
                     setShowEdit(true);
                     setSelectCategory(item.category_name);
@@ -75,7 +79,9 @@ const CategoryList = () => {
           );
         })}
       </ListGroup>
-      <button onClick={() => setShow(true)}>추가</button>
+      <button className={style.Edit} onClick={() => setShow(true)}>
+        추가
+      </button>
       <Modal show={show}>
         <h2>새 카테고리 이름을 입력해주세요</h2>
         <Form onSubmit={(e) => PlusCategory(e)}>

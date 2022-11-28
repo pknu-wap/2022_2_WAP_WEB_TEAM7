@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Check } from "../CheckValue";
+import style from "./Edit.module.css";
 
 const OptionEdit = ({ optionName, optionList, show }) => {
   //옵션 종류 추가하는 기능
@@ -175,14 +176,18 @@ const OptionEdit = ({ optionName, optionList, show }) => {
               {inputList.length !== 1 && (
                 <button
                   type="button"
-                  className="mr10"
+                  className={style.Edit}
                   onClick={() => handleRemoveClick(i)}
                 >
                   삭제
                 </button>
               )}
               {inputList.length - 1 === i && (
-                <button type="button" onClick={handleAddClick}>
+                <button
+                  type="button"
+                  className={style.Edit}
+                  onClick={handleAddClick}
+                >
                   항목추가
                 </button>
               )}

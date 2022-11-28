@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Check } from "../CheckValue";
 import Menu from "../Menu";
-
+import style from "../Option/Edit.module.css";
 function Edit({ MenuInfo, IsModalOpen, rerender }) {
   //옵션 데이터 담을 state 변수
   const [optionList, setoptionList] = useState([]);
   const [OldOptionList, setOldOptionList] = useState([]);
   //  로딩중 스테이트 변수
   const [isLoading, setisLoading] = useState(true);
+  // 그림을 담을 state 변수
+  const [image, setImage] = useState(null);
   // optionList에서 옵션 이름만 포함해서 담을 배열
   let optionNameList = [];
   // 옵션 불러오는 함수
@@ -65,7 +67,9 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         new: `{
           ${checkName}
           "price" : ${newPrice},
-          "is_forbidden" : ${IsSoldOut}
+          "is_forbidden" : ${IsSoldOut},
+          "menu_image" : "${image}"
+
         }`,
       });
     // 메뉴에 어떤 옵션이 들어가는 지 수정을 위한 함수
@@ -138,8 +142,15 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
           </select>
         </div>
         <div>
-          <label>사진</label>
-          <input type="text" value={MenuInfo.image} />
+          <div style={{}}>
+            <label>현재사진</label>
+            <img
+              src={"http://127.0.0.1:8000" + MenuInfo.menu_image}
+              style={{ width: 100, border: "1px solid black" }}
+            ></img>
+            <br></br>
+            <input type="file" onChange={(e) => setImage(e.target.value)} />
+          </div>
         </div>
         <div>
           <label>옵션을 선택하세요</label>
@@ -175,8 +186,14 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         </div>
 
         <div>
-          <button type="submit">메뉴수정</button>
-          <button type="button" onClick={() => IsModalOpen(false)}>
+          <button className={style.Edit} type="submit">
+            메뉴수정
+          </button>
+          <button
+            className={style.Edit}
+            type="button"
+            onClick={() => IsModalOpen(false)}
+          >
             취소
           </button>
         </div>

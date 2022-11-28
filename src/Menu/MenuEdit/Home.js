@@ -3,7 +3,8 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie"; // useCookies import
 import Modal from "react-bootstrap/Modal";
-
+import bcrypt from "bcryptjs";
+const bcryptjs = require("bcryptjs");
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.post("http://127.0.0.1:8000/webKiosk/account/signup/", {});
@@ -11,17 +12,21 @@ const handleSubmit = (e) => {
 const Login = (props) => {
   const formRef = useRef();
   const [cookies, setCookie, removeCookie] = useCookies(["id"]); // 쿠키 훅
+  const [encodepw, setpw] = useState("");
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    axios
+
+    let test = await bcryptjs.hash(formRef.current.passWord.value, 10);
+
+    await axios
       .post("http://127.0.0.1:8000/webKiosk/account/login/", {
         // 로그인 요청
         userid: formRef.current.id.value,
-        password: formRef.current.passWord.value,
+        password: test,
         market_name: formRef.current.market_name.value,
       })
       .then((res) => {

@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import OptionCreate from "./OptionCreate";
 import { OptionDel } from "./OptionDel";
 import OptionEdit from "./OptionEdit";
+import style from "../Menu.module.css";
 const OptionList = () => {
   //모달 창 상태 변수
   const [show, setShow] = useState(false);
@@ -55,6 +56,7 @@ const OptionList = () => {
                   <td>{`${detailOption}`.replace("{", "").replace("}", "")}</td>
                   <td>
                     <button
+                      className={style.Edit}
                       onClick={() => {
                         setOptionName(option.option_name);
                         setIsEditOpen(true);
@@ -65,6 +67,7 @@ const OptionList = () => {
                   </td>
                   <td>
                     <button
+                      className={style.Edit}
                       onClick={() =>
                         OptionDel(option.option_name, detailOption)
                       }
@@ -88,7 +91,9 @@ const OptionList = () => {
           show={setIsEditOpen}
         />
       </Modal>
-      <button onClick={() => setShow(true)}>옵션 추가하기</button>
+      <button className={style.Edit} onClick={() => setShow(true)}>
+        옵션 추가하기
+      </button>
     </>
   );
 };
