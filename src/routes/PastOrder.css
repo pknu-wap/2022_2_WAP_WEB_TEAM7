@@ -1,0 +1,27 @@
+.all_list_header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    color: white;
+    border-bottom: 1px solid white;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.all_list_header span {
+    border-right: 1px solid white;
+    font-weight: bold;
+}
+
+#price {
+    border-right: 0;
+}
+
+.all_list {
+    color: white;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    padding-top: 10px;
+}
