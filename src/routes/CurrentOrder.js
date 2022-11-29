@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./CurrentOrder.css"
 import axios from 'axios';
+import Modal from 'react-modal'
+import MoreInformation from "../component/MoreInformation";
 
 function CurrentOrder() {
 
@@ -9,6 +11,9 @@ function CurrentOrder() {
 
     // 접수 상태
     const [receptionState, setReceptionState] = useState("접수 대기")
+
+    // 모달 열고 닫기 변수
+    const [isOpen, setIsOpen] = useState(false);
 
     // 주문 목록 불러오기
     async function GetList() {
@@ -48,13 +53,16 @@ console.log(list)
                                     테이블 번호 {orderList.table_num}
                                 </div>
                             </div>
-                            <button className="more_information">상세<br/>보기</button>
+                            <button className="more_information" onClick={()=>setIsOpen(true)}>상세<br/>보기</button>
                         </div>
                         <div className="menu_list">
                             {JSON.parse(`${orderList.menu_list}`).map((menuList) => (
                                 <div>{menuList.menu_name}({menuList.order_count})</div>
                             ))}
                         </div>
+                        <Modal isOpen={isOpen} onRequestClose={()=>setIsOpen(true)}>
+                            <MoreInformation menuLists={orderList} setwindow={setIsOpen}/>
+                        </Modal>
                     </div>
                 </React.Fragment>
             ))}
