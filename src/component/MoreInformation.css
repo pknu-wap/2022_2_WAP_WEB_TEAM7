@@ -2,5 +2,55 @@
     color: white;
     background-color: #132D48;
     display: grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 30fr 1fr;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.information_header button {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #42576D;
+    border-radius: 50%;
+    background-color: #42576D;
+    color: white;
+}
+
+.information_menu_list {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+}
+
+.inf_one {
+    color: #132D48;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.inf_two {
+    padding: 5px;
+    color: #42576D;
+}
+
+.inf_three {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 3fr;
+    text-align: center;
+    color: orange;
+    font-weight: bold;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.inf_four {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 3fr;
+    text-align: center;
+    padding-top: 10px;
+    color: gray;
+    font-weight: bold;
 }

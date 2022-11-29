@@ -1,7 +1,8 @@
 .order_list_container {
     /* float: left; */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-right: 10px;
 }
 
 .menu_list_container {
@@ -10,7 +11,7 @@
     margin: 10px 0px 0px 10px;
     border: 1px solid white;
     border-radius: 10px;
-    height: 30%;
+    height: 15rem;
     color: #132D48;
 }
 

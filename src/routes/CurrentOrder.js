@@ -34,7 +34,7 @@ function CurrentOrder() {
 
 useEffect(()=>{GetList()},[])
 
-console.log(list)
+// console.log(list)
 
     return (
         <div className="order_list_container">
