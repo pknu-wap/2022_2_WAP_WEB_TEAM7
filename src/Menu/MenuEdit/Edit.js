@@ -67,8 +67,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
         new: `{
           ${checkName}
           "price" : ${newPrice},
-          "is_forbidden" : ${IsSoldOut},
-          "menu_image" : "${image}"
+          "is_forbidden" : ${IsSoldOut}
 
         }`,
       });
@@ -91,12 +90,9 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
     };
     UpdataMenu();
     UpdateOption();
-    if (UpdataMenu.data === "이미 동일한 이름이 존재합니다.") {
-      alert(UpdataMenu.data);
-    } else {
-      IsModalOpen(false);
-      // window.location.reload();
-    }
+
+    IsModalOpen(false);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -142,7 +138,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
           </select>
         </div>
         <div>
-          <div style={{}}>
+          {/* <div style={{}}>
             <label>현재사진</label>
             <img
               src={"http://127.0.0.1:8000" + MenuInfo.menu_image}
@@ -150,7 +146,7 @@ function Edit({ MenuInfo, IsModalOpen, rerender }) {
             ></img>
             <br></br>
             <input type="file" onChange={(e) => setImage(e.target.value)} />
-          </div>
+          </div> */}
         </div>
         <div>
           <label>옵션을 선택하세요</label>

@@ -13,16 +13,16 @@ import { useNavigate } from "react-router-dom";
 axios.defaults.withCredentials = true;
 function Menu() {
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
-  if (!cookies.id) {
-    return;
-    alert("로그인이 필요합니다.");
-    window.location.href = "/login";
-  } else {
-    return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <MenuTap />
-      </div>
-    );
-  }
+  // if (!cookies.id) {
+  //   return;
+  //   alert("로그인이 필요합니다.");
+  //   window.location.href = "/login";
+  // } else {
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <MenuTap />
+    </div>
+  );
 }
+// }
 export default Menu;

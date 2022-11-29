@@ -2,6 +2,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { ListGroup } from "react-bootstrap";
 import { Check } from "./CheckValue";
+import style from "./Option/Edit.module.css";
 
 function EditCate(e, OldName, NewName) {
   e.preventDefault();
@@ -35,8 +36,10 @@ const EditCategory = ({ show, OldCategory }) => {
           Check(e);
         }}
       />
-      <button type="submit">확인</button>
-      <button type="button" onClick={() => show(false)}>
+      <button className={style.Edit} type="submit">
+        확인
+      </button>
+      <button className={style.Edit} type="button" onClick={() => show(false)}>
         취소
       </button>
     </Form>

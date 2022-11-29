@@ -4,10 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie"; // useCookies import
 import Modal from "react-bootstrap/Modal";
 import bcrypt from "bcryptjs";
+import { Check } from "../CheckValue";
+
 const bcryptjs = require("bcryptjs");
 const handleSubmit = (e) => {
   e.preventDefault();
-  axios.post("http://127.0.0.1:8000/webKiosk/account/signup/", {});
+  axios
+    .post("http://127.0.0.1:8000/webKiosk/account/signup/", {
+      userid: e.target.id.value,
+      password: e.target.passWord.value,
+      market_name: e.target.market_name.value,
+    })
+    .then((res) => {
+      if (res.data.includes("already exists")) {
+        alert("이미 존재하는 값을 입력하셨습니다.");
+      } else if (res.includes("*")) {
+        alert("비밀번호에 !@#$%^&*은 하나 이상 입력되어야 합니다.");
+      }
+    });
 };
 const Login = (props) => {
   const formRef = useRef();
@@ -48,7 +62,15 @@ const Login = (props) => {
     return (
       <>
         <form ref={formRef} onSubmit={login}>
-          <input type="text" name="id" placeholder="id" required />
+          <input
+            type="text"
+            name="id"
+            placeholder="id"
+            required
+            onChange={(e) => {
+              Check(e);
+            }}
+          />
           <input
             type="password"
             name="passWord"
@@ -67,7 +89,7 @@ const Login = (props) => {
         <Modal show={show}>
           <div>
             <h1>회원가입</h1>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <input type="text" name="id" placeholder="id" required />
               <input
                 type="password"

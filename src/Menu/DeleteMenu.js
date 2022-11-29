@@ -30,5 +30,5 @@ export async function DelMenu(OldMenuList, delMenu, SelectTap) {
     .then((response) => {
       console.log("response", response);
     });
-  // window.location.reload();
+  window.location.reload();
 }

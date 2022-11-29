@@ -7,6 +7,7 @@ import { DelCategory } from "./DeleteCategory";
 import EditCategory from "./EditCategory";
 import { Check } from "./CheckValue";
 import style from "./Menu.module.css";
+import Editstyle from "./Option/Edit.module.css";
 
 const CategoryList = () => {
   const [update, setupdate] = useState([]);
@@ -34,6 +35,7 @@ const CategoryList = () => {
         } else {
           setShow(false);
           setupdate([...update]);
+          window.location.reload();
         }
       });
   }
@@ -94,8 +96,14 @@ const CategoryList = () => {
               Check(e);
             }}
           />
-          <button type="submit">확인</button>
-          <button type="button" onClick={() => setShow(false)}>
+          <button className={Editstyle.Edit} type="submit">
+            확인
+          </button>
+          <button
+            className={Editstyle.Edit}
+            type="button"
+            onClick={() => setShow(false)}
+          >
             취소
           </button>
         </Form>

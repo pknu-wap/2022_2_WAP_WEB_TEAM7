@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import React, { useState } from "react";
+import style from "./Edit.module.css";
+import { Check } from "../CheckValue";
 
 const OptionCreate = ({ show }) => {
   //옵션 종류 추가하는 기능
@@ -49,6 +51,7 @@ const OptionCreate = ({ show }) => {
         });
     data();
     show(false);
+    window.location.reload();
   }
 
   // axios
@@ -62,6 +65,7 @@ const OptionCreate = ({ show }) => {
             <Form.Control
               type="text"
               placeholder="옵션 이름을 입력해주세요"
+              onChange={(e) => Check(e)}
               required
             />
           </Form.Group>
@@ -79,7 +83,11 @@ const OptionCreate = ({ show }) => {
                       placeholder="이름을 입력해주세요"
                       name="Name"
                       value={x.Name}
-                      onChange={(e) => handleInputChange(e, i)}
+                      onChange={(e) => {
+                        Check(e);
+
+                        handleInputChange(e, i);
+                      }}
                     />
                   </Col>
                   <Col>
@@ -98,19 +106,24 @@ const OptionCreate = ({ show }) => {
               </Form.Group>
               <div className="btn-box">
                 {inputList.length !== 1 && (
-                  <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                  <button
+                    className={style.Edit}
+                    onClick={() => handleRemoveClick(i)}
+                  >
                     삭제
                   </button>
                 )}
                 {inputList.length - 1 === i && (
-                  <button onClick={handleAddClick}>항목추가</button>
+                  <button className={style.Edit} onClick={handleAddClick}>
+                    항목추가
+                  </button>
                 )}
               </div>
             </div>
           );
         })}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
       </div>
+      <br></br>
       <Button variant="primary" type="submit">
         생성하기
       </Button>

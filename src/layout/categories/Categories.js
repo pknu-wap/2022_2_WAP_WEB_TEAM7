@@ -9,14 +9,14 @@ function Categories() {
   return (
     <div className="category_container">
       <ol>
-        <Link to="/login">
+        {/* <Link to="/login">
           <li
             className={isSelected === "Current" ? "selected" : ""}
             onClick={() => select("login")}
           >
             login
           </li>
-        </Link>
+        </Link> */}
         <Link to="/current_order">
           <li
             className={isSelected === "Current" ? "selected" : "categories"}

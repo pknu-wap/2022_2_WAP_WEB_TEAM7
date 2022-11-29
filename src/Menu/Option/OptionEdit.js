@@ -197,13 +197,11 @@ const OptionEdit = ({ optionName, optionList, show }) => {
       })}
       <br></br>
       <Button variant="primary" type="submit">
-        생성하기
+        수정하기
       </Button>
       <Button type="button" onClick={() => show(false)}>
         취소하기
       </Button>
-      {/* 추가 기능 태스트용 코드 */}
-      {/* <h2>test{JSON.stringify(inputList)}</h2> */}
     </Form>
   );
 };

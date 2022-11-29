@@ -68,7 +68,7 @@ function CreateMenu({ MenuInfo, IsOpen, SelectTap, MenuList }) {
             console.log("response", response);
           });
         IsOpen(false);
-        //window.location.reload();
+        window.location.reload();
       }
     };
     const res = MakeMenu();
