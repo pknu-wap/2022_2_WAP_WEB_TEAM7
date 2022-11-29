@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import "../Menu.scss"
+
 // const cookies = new Cookies();
 // export const setCookie = () => {
 //   return cookies.set(name, value, { ...options });
@@ -19,7 +21,7 @@ function Menu() {
   //   window.location.href = "/login";
   // } else {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div  className="test" style={{ display: "flex", flexDirection: "column" }}>
       <MenuTap />
     </div>
   );

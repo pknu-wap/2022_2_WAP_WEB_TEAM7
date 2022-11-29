@@ -5,6 +5,7 @@ import Edit from "./MenuEdit/Edit";
 import CreateMenu from "./CreateMenu";
 import { DelMenu } from "./DeleteMenu.js";
 import style from "./Menu.module.css";
+import "./MenuList.css";
 
 const MenuList = ({ categoryName, SelectTap }) => {
   //메뉴 데이터를 담을 변수
