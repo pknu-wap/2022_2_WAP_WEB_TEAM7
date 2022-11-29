@@ -1,0 +1,6 @@
+.information_header {
+    color: white;
+    background-color: #132D48;
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+}

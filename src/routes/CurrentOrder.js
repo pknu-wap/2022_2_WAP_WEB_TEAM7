@@ -9,6 +9,9 @@ function CurrentOrder() {
     // 주문 목록
     const [list, setList] = useState([])
 
+    // 모달 전달 목록
+    const [mList, setMList] = useState([])
+
     // 접수 상태
     const [receptionState, setReceptionState] = useState("접수 대기")
 
@@ -53,19 +56,19 @@ console.log(list)
                                     테이블 번호 {orderList.table_num}
                                 </div>
                             </div>
-                            <button className="more_information" onClick={()=>setIsOpen(true)}>상세<br/>보기</button>
+                            <button className="more_information" onClick={()=>{setIsOpen(true); setMList(orderList);}}>상세<br/>보기</button>
                         </div>
                         <div className="menu_list">
                             {JSON.parse(`${orderList.menu_list}`).map((menuList) => (
                                 <div>{menuList.menu_name}({menuList.order_count})</div>
                             ))}
                         </div>
-                        <Modal isOpen={isOpen} onRequestClose={()=>setIsOpen(true)}>
-                            <MoreInformation menuLists={orderList} setwindow={setIsOpen}/>
-                        </Modal>
                     </div>
                 </React.Fragment>
             ))}
+            <Modal isOpen={isOpen} onRequestClose={()=>setIsOpen(true)}>
+                <MoreInformation menuLists={mList} setwindow={setIsOpen}/>
+            </Modal>
         </div>
     )
 }

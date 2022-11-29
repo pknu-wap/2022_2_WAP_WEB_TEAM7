@@ -4,6 +4,7 @@ function MoreInformation({ menuLists, setwindow }) {
     return (
         <div className="information_container">
             <div className="information_header">
+                <span>주문 상세내역</span>
                 <button onClick={()=>setwindow(false)}>X</button>
             </div>
             <div className="information_menu_list">
