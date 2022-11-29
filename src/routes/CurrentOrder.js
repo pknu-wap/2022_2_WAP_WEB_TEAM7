@@ -7,6 +7,9 @@ function CurrentOrder() {
     // 주문 목록
     const [list, setList] = useState([])
 
+    // 접수 상태
+    const [receptionState, setReceptionState] = useState("접수 대기")
+
     // 주문 목록 불러오기
     async function GetList() {
         const url="http://127.0.0.1:8000/webKiosk/client/order/read/new/"
@@ -30,15 +33,26 @@ console.log(list)
             {list.map((orderList) => (
                 <React.Fragment>
                     <div className="menu_list_container">
-                        <div className="table_num">
-                            테이블 번호 {orderList.table_num}
+                        <div className="waiting">
+                            <span className="reception_state">{receptionState}</span>
                         </div>
-                        <div className="order_num">
-                            주문 번호 {orderList.order_num}
+                        <div className="information">
+                            <div className="order_num">
+                                {orderList.order_num}
+                            </div>
+                            <div className="detail">
+                                <div className="is_take_out">
+                                    {orderList.take_out ? "테이크아웃" : "매장내식사"}
+                                </div>
+                                <div className="table_num">
+                                    테이블 번호 {orderList.table_num}
+                                </div>
+                            </div>
+                            <button className="more_information">상세<br/>보기</button>
                         </div>
                         <div className="menu_list">
                             {JSON.parse(`${orderList.menu_list}`).map((menuList) => (
-                                <div>{menuList.menu_name}</div>
+                                <div>{menuList.menu_name}({menuList.order_count})</div>
                             ))}
                         </div>
                     </div>

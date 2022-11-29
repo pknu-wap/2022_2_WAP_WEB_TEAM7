@@ -8,17 +8,17 @@ import MenuModify from './routes/MenuModify';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Categories/>
-        <Routes>
-          <Route path='/' element={<Navigate to='/current_order'/>}/>
-          <Route path='/current_order' element={<CurrentOrder/>}/>
-          <Route path='/past_order' element={<PastOrder/>}/>
-          <Route path='/menu_modify' element={<MenuModify/>}/>
-        </Routes>
-      </div>
-    </Router>
+    <div className='wrapper'>
+      <Router>
+          <Categories/>
+          <Routes>
+            <Route path='/' element={<Navigate to='/current_order'/>}/>
+            <Route path='/current_order' element={<CurrentOrder/>}/>
+            <Route path='/past_order' element={<PastOrder/>}/>
+            <Route path='/menu_modify' element={<MenuModify/>}/>
+          </Routes>
+      </Router>
+    </div>
   );
 }
 

@@ -1,3 +1,66 @@
+.order_list_container {
+    /* float: left; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .menu_list_container {
+    background-color: white;
     padding: 10px;
+    margin: 10px 0px 0px 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 30%;
+    color: #132D48;
+}
+
+.information {
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    color: inherit;
+}
+
+.menu_list {
+    padding: 10px;
+}
+
+.order_num {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.is_take_out {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.table_num {
+    color: gray;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.more_information {
+    background-color: white;
+    color: #132D48;
+    font-weight: 600;
+    border: 2px solid #132D48;
+    border-radius: 5px;
+}
+
+.waiting {
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 6rem;
+    padding: 3px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.reception_state {
+    color: white;
 }

@@ -1,15 +1,15 @@
 .category_container {
-    display: grid;
-    grid-template-columns: 15rem;
+    display: block;
     text-align: center;
+    height: 100vh;
     font-size: 1.2rem;
-    float: left;
+    /* float: left; */
+    border-right: 1px solid #132D48;
+    background-color: white;
 }
 
-.category_container ol {
+.category_container {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .categories li {
@@ -18,7 +18,6 @@
 }
 
 .categories {
-    border-right: 1px solid #132D48;
     margin: 0;
     padding: 10%;
 }
