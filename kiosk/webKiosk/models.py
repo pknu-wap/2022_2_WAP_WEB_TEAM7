@@ -80,6 +80,7 @@ class Order(models.Model):
     all_price=models.IntegerField()
     create_date=models.DateTimeField()
     is_new=models.BooleanField(default=True)
+    is_accepted=models.BooleanField(default=False)
     take_out=models.BooleanField()
     class Meta:
         ordering=["-create_date","id"]
@@ -92,6 +93,7 @@ class Order(models.Model):
         if 'all_price' in vargs: self.all_price=vargs['all_price']
         if 'is_new' in vargs:self.is_new=vargs['is_new']
         if 'take_out' in vargs:self.take_out=vargs['take_out']
+        if 'is_accepted' in vargs:self.is_accepted=vargs['is_accepted']
         self.save()
 class Account(models.Model):
     userid=models.CharField(unique=True,max_length=100)

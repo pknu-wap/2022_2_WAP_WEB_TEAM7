@@ -8,9 +8,10 @@ from django.http.response import HttpResponse
 import json
 import bcrypt
 from .views import *
+
 '''
 response=AccountAPI.CheckSession.post(self,request,format=None)
-            if response.status_code!=200 or response.status_code!=201:
+            if response.status_code not in [200,201,202]:
                 return Response(status=status.HTTP_403_FORBIDDEN)
 '''
 class CategoryAPI:
