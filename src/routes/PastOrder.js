@@ -34,14 +34,14 @@ useEffect(()=>{GetAllList()},[])
             {list.map((orderList) => (
                 <React.Fragment>
                     <div className="all_list">
-                        <span>{orderList.order_num}</span>
-                        <span>{orderList.create_date}</span>
-                        <span>
+                        <div>{orderList.order_num}</div>
+                        <div>{orderList.create_date}</div>
+                        <div>
                             {JSON.parse(`${orderList.menu_list}`).map((menuList) => (
-                                <div>{menuList.menu_name}({menuList.order_count})</div>
+                                <span>{menuList.menu_name}({menuList.order_count})</span>
                                 ))}
-                        </span>
-                        <span>{orderList.all_price}</span>
+                        </div>
+                        <div>{orderList.all_price}</div>
                     </div>
                 </React.Fragment>
             ))}

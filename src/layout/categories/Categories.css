@@ -1,9 +1,10 @@
 .category_container {
     display: block;
     text-align: center;
-    height: 100vh;
+    height: 100%;
+    width: 15rem;
     font-size: 1.2rem;
-    /* float: left; */
+    float: left;
     border-right: 1px solid #132D48;
     background-color: white;
 }
