@@ -46,7 +46,7 @@ function Accept({ menuLists, setwindow }) {
         is_accepted: menuLists.is_accepted
     }
 
-    async function Accepted() {
+    async function AcceptOrder() {
         const url="http://127.0.0.1:8000/webKiosk/client/order/treat/"
         try {
             axios.post(url,
@@ -60,7 +60,7 @@ function Accept({ menuLists, setwindow }) {
         }
     }
 
-    async function Rejected() {
+    async function Done() {
         const url="http://127.0.0.1:8000/webKiosk/client/order/treat/"
         try {
             axios.post(url,
@@ -77,8 +77,8 @@ function Accept({ menuLists, setwindow }) {
     function Frist() {
         return (
             <div>
-                <button id="acc" onClick={()=>{close(); Accepted();}}>주문수락</button>
-                <button id="rej" onClick={()=>{close(); Rejected();}}>주문거부</button>
+                <button id="acc" onClick={()=>{close(); AcceptOrder();}}>주문수락</button>
+                <button id="rej" onClick={()=>{close(); Done();}}>주문거부</button>
             </div>
         )
     }
@@ -86,7 +86,7 @@ function Accept({ menuLists, setwindow }) {
     function Second() {
         return (
             <div>
-                <button id="done" onClick={()=>{close(); Rejected();}}>수령완료</button>
+                <button id="done" onClick={()=>{close(); Done();}}>수령완료</button>
             </div>
         )
     }
