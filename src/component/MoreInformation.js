@@ -16,7 +16,12 @@ function MoreInformation({ menuLists, setwindow }) {
                         {menuLists.order_num}번. {menuLists.take_out ? "테이크아웃" : "매장내식사"}
                     </div>
                     <div className="inf_two">
-                        주문일시 : {menuLists.create_date}
+                        <div>
+                            주문일시 : {menuLists.create_date}
+                        </div>
+                        <div>
+                            총 가격 : {menuLists.all_price}
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -35,8 +40,6 @@ function MoreInformation({ menuLists, setwindow }) {
                                 <span>{menuList[key].total_price} </span>
                                 <span>
                                 {Object.entries(menuList[key]).map((item)=>{
-                                    // console.log(item);
-                                    // console.log(count);
                                     if (count >= 3) {
                                         return <label>{item[0] + " : " + item[1]}<br/></label>;
                                     }

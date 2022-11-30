@@ -77,7 +77,7 @@ useEffect(()=>{GetList()},[])
                 <MoreInformation menuLists={mList} setwindow={setIsOpen}/>
             </Modal>
             <Modal isOpen={isOpen2} onRequestClose={()=>setIsOpen2(true)}>
-                <Accept menuLists={mList2}/>
+                <Accept menuLists={mList2} setwindow={setIsOpen2}/>
             </Modal>
         </div>
     )

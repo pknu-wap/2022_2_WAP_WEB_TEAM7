@@ -23,10 +23,12 @@ function PastOrder() {
 
 useEffect(()=>{GetAllList()},[])
 
+
     return (
         <div className="all_list_container">
             <div className="all_list_header">
                 <span>주문번호</span>
+                <span>주문상태</span>
                 <span>주문시간</span>
                 <span>주문내역</span>
                 <span id="price">가격</span>
@@ -35,13 +37,14 @@ useEffect(()=>{GetAllList()},[])
                 <React.Fragment>
                     <div className="all_list">
                         <div>{orderList.order_num}</div>
+                        <div>{orderList.is_new && !orderList.is_accepted ? "접수대기" : orderList.is_accepted && ! orderList.is_new ? "완료" : orderList.is_accepted ? "조리중" : "주문취소"}</div>
                         <div>{orderList.create_date}</div>
                         <div>
                             {JSON.parse(`${orderList.menu_list}`).map((menuList) => (
                                 <span>{menuList.menu_name}({menuList.order_count})</span>
                                 ))}
                         </div>
-                        <div>{orderList.all_price}</div>
+                        <div>{orderList.all_price}원</div>
                     </div>
                 </React.Fragment>
             ))}

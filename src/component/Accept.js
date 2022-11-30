@@ -1,7 +1,7 @@
 import "./Accept.css"
 import axios from "axios";
 
-function Accept({ menuLists }) {
+function Accept({ menuLists, setwindow }) {
 
     function close(e) {
         window.location.href = "/current_order"
@@ -77,8 +77,8 @@ function Accept({ menuLists }) {
     function Frist() {
         return (
             <div>
-                <button onClick={()=>{close(); Accepted();}}>주문수락</button>
-                <button onClick={()=>{close(); Rejected();}}>주문거부</button>
+                <button id="acc" onClick={()=>{close(); Accepted();}}>주문수락</button>
+                <button id="rej" onClick={()=>{close(); Rejected();}}>주문거부</button>
             </div>
         )
     }
@@ -86,7 +86,7 @@ function Accept({ menuLists }) {
     function Second() {
         return (
             <div>
-                <button onClick={()=>{close(); Rejected();}}>수령완료</button>
+                <button id="done" onClick={()=>{close(); Rejected();}}>수령완료</button>
             </div>
         )
     }
@@ -101,6 +101,10 @@ function Accept({ menuLists }) {
 
     return (
         <div>
+            <div className="accept_header">
+                <span>주문 접수화면</span>
+                <button onClick={()=>setwindow(false)}>X</button>
+            </div>
             {content}
         </div>
     )

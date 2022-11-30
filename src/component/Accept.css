@@ -1,0 +1,65 @@
+.accept_header {
+    /* width: 100%;
+    display: flex;
+    flex-direction: column-reverse; */
+    color: white;
+    background-color: #132D48;
+    display: grid;
+    grid-template-columns: 30fr 1fr;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.accept_header button {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #42576D;
+    border-radius: 50%;
+    background-color: #42576D;
+    color: white;
+    position: relative;
+    right: 0;
+}
+
+#acc {
+    width: 9rem;
+    height: 5rem;
+    background-color: white;
+    color: orange;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 3px solid orange;
+    border-radius: 10%;
+    position: absolute;
+    left: 35%;
+    top: 47%;
+}
+
+#rej {
+    width: 9rem;
+    height: 5rem;
+    background-color: white;
+    color: red;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 3px solid red;
+    border-radius: 10%;
+    position: absolute;
+    left: 54%;
+    top: 47%;
+}
+
+#done {
+    width: 30%;
+    height: 18%;
+    background-color: #42576D;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 3px solid white;
+    border-radius: 10px;
+    position: absolute;
+    left: 35%;
+    top: 43%;
+}

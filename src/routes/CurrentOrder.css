@@ -98,7 +98,7 @@
     height: 100%;
     padding: 0;
     background-color: white;
-    border: 1px solid orange;
+    border: 2px solid orange;
     border-radius: 10px;
     color: orange;
     font-weight: bold;
@@ -109,7 +109,7 @@
     height: 100%;
     padding: 0;
     background-color: #42576D;
-    border: 1px solid #42576D;
+    border: 2px solid #42576D;
     border-radius: 10px;
     color: white;
     font-weight: bold;
