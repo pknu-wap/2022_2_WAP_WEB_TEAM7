@@ -23,7 +23,16 @@ class OrderSerializer(serializers.ModelSerializer):
     is_new=serializers.BooleanField(default=True)
     class Meta:
         model=Order
-        fields=('id','market_name','table_num','order_num','menu_list','all_price','create_date','is_new','take_out')
+        fields=('id',
+        'market_name',
+        'table_num',
+        'order_num',
+        'menu_list',
+        'all_price',
+        'create_date',
+        'is_new',
+        'is_accepted',
+        'take_out')
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
