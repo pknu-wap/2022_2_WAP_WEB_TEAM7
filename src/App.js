@@ -4,7 +4,7 @@ import './App.css';
 import Categories from './layout/categories/Categories';
 import CurrentOrder from './routes/CurrentOrder';
 import PastOrder from './routes/PastOrder';
-import MenuModify from './routes/MenuModify';
+import Menu from './Menu/Menu';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
             <Route path='/' element={<Navigate to='/current_order'/>}/>
             <Route path='/current_order' element={<CurrentOrder/>}/>
             <Route path='/past_order' element={<PastOrder/>}/>
-            <Route path='/menu_modify' element={<MenuModify/>}/>
+            <Route path='/menu_modify' element={<Menu/>}/>
           </Routes>
       </Router>
     </div>
