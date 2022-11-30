@@ -13,6 +13,8 @@
     border-radius: 10px;
     height: 15rem;
     color: #132D48;
+    display: flex;
+    flex-direction: column;
 }
 
 .information {
@@ -62,6 +64,53 @@
     font-weight: bold;
 }
 
+.accept {
+    background-color: #42576D;
+    border: 1px solid #42576D;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 6rem;
+    padding: 3px;
+    text-align: center;
+    font-weight: bold;
+}
+
 .reception_state {
     color: white;
+}
+
+.accept_button {
+    width: 100%;
+    flex-grow: 1;
+    margin-top: 10%;
+    /* height: 100%; */
+}
+
+.done_button {
+    width: 100%;
+    flex-grow: 1;
+    margin-top: 10%;
+    /* height: 100%; */
+}
+
+.accept_button button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-color: white;
+    border: 1px solid orange;
+    border-radius: 10px;
+    color: orange;
+    font-weight: bold;
+}
+
+.done_button button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-color: #42576D;
+    border: 1px solid #42576D;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
 }
