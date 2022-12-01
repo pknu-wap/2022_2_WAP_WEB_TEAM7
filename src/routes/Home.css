@@ -16,11 +16,24 @@
   filter: brightness(0.9);
 }
 
-#restaurant {
+/*#restaurant {
   position: absolute;
   left: 35%;
   top: 50%;
   transform: translate(-65%, -50%);
+}*/
+
+#restaurant {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#kioskLogo {
+  position: absolute;
+  left: 50%;
+  top: 88%;
+  transform: translate(-50%, -50%);
 }
 
 #packaging {
