@@ -1,6 +1,6 @@
-/* .all_list_container {
+.all_list_container {
     float: left;
-} */
+}
 
 .all_list_header {
     display: grid;
