@@ -56,7 +56,9 @@ class CRUD:
                     if IsSameName(account,model,**dic)==False:
                         Save(model,account,**dic)
                         return Response(serializer.data)
-                    return HttpResponse("이미 동일한 이름이 존재합니다")    
+                    return HttpResponse("이미 동일한 이름이 존재합니다") 
+                if model==Order:
+                    pass   
                 else: 
                     if IsSameName(account,model,**serializer.data)==False:
                         Save(model,account,**serializer.data)
