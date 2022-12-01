@@ -1,3 +1,7 @@
+/* .all_list_container {
+    float: left;
+} */
+
 .all_list_header {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
