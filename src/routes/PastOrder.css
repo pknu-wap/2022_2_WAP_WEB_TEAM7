@@ -1,5 +1,5 @@
 .all_list_container {
-    float: left;
+    flex-grow: 1;
 }
 
 .all_list_header {
